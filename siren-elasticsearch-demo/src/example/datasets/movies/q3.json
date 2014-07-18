@@ -1,0 +1,27 @@
+{
+  "boolean" : {
+    "clause" : [ {
+      "occur" : "MUST",
+        "twig" : {
+          "root" : "genre",
+          "child" : [ {
+            "occur" : "MUST",
+            "node" : {
+              "query" : "Drama"
+            }
+          } ]
+        }
+      }, {
+        "occur" : "MUST",
+        "twig" : {
+          "root" : "year",
+          "child" : [ {
+            "occur" : "MUST",
+            "node" : {
+              "query" : "2010"
+            }
+          } ]
+        }
+    } ]
+  }
+}

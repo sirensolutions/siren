@@ -1,0 +1,27 @@
+{
+  "boolean" : {
+    "clause" : [ {
+      "occur" : "MUST",
+      "twig" : {
+        "root" : "subject",
+        "child" : [ {
+          "occur" : "MUST",
+          "node" : {
+            "query" : "Environmental"
+          }
+        } ]
+      }
+    }, {
+      "occur" : "MUST",
+      "twig" : {
+        "root" : "issued",
+        "child" : [ {
+          "occur" : "MUST",
+          "node" : {
+            "query" : "2009"
+          }
+        } ]
+      }
+    } ]
+  }
+}

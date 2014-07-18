@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.sindicetech.siren</groupId>
+    <artifactId>siren-parent</artifactId>
+    <version>1.3</version>
+    <relativePath>../siren-parent</relativePath>
+  </parent>
+
+  <artifactId>siren-lucene-demo</artifactId>
+  <name>siren-lucene-demo</name>
+  <description>SIREn Lucene demo</description>
+  <url>http://sirendb.com</url>
+
+  <build>
+    <plugins>
+      <!-- Register the prefabricated descriptor jar-with-dependencies -->
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.4</version>
+        <configuration>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+          <finalName>${project.name}</finalName>
+          <attach>false</attach> <!-- exclude this jar from install and deployment -->
+        </configuration>
+        <executions>
+          <execution>
+            <phase>package</phase> <!-- bind to the packaging phase -->
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.7</version>
+        <configuration>
+          <tasks>
+            <property name="rootdir" location="./.." />
+            <property name="target" value="${project.build.directory}" />
+
+            <copy todir="${target}/datasets">
+              <fileset dir="src/datasets" />
+            </copy>
+          </tasks>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+
+    <dependency>
+      <groupId>com.sindicetech.siren</groupId>
+      <artifactId>siren-core</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.sindicetech.siren</groupId>
+      <artifactId>siren-qparser</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.codehaus.jackson</groupId>
+      <artifactId>jackson-core-asl</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.codehaus.jackson</groupId>
+      <artifactId>jackson-mapper-asl</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <version>1.7.5</version>
+    </dependency>
+  </dependencies>
+
+</project>

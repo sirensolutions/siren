@@ -1,0 +1,36 @@
+{
+  "twig" : {
+    "root" : "actors",
+    "child" : [ {
+      "occur" : "MUST",
+      "twig" : {
+        "child" : [ {
+          "occur" : "MUST",
+          "twig" : {
+            "child" : [ {
+              "occur" : "MUST",
+              "node" : {
+                "query" : "Timberlake"
+              }
+            } ]
+          }
+        } ]
+      }
+    }, {
+      "occur" : "MUST",
+      "twig" : {
+        "child" : [ {
+          "occur" : "MUST",
+          "twig" : {
+            "child" : [ {
+              "occur" : "MUST",
+              "node" : {
+                "query" : "Eisenberg"
+              }
+            } ]
+          }
+        } ]
+      }
+    } ]
+  }
+}

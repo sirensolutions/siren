@@ -1,0 +1,33 @@
+{
+  "twig" : {
+    "root" : "identifier",
+    "child" : [ {
+      "occur" : "MUST",
+      "twig" : {
+        "child" : [ {
+          "occur" : "MUST",
+          "twig" : {
+            "root" : "id",
+            "child" : [ {
+              "occur" : "MUST",
+              "node" : {
+                "query" : "9780852935392"
+              }
+            } ]
+          }
+        }, {
+          "occur" : "MUST",
+          "twig" : {
+            "root" : "type",
+            "child" : [ {
+              "occur" : "MUST",
+              "node" : {
+                "query" : "isbn"
+              }
+            } ]
+          }
+        } ]
+      }
+    } ]
+  }
+}

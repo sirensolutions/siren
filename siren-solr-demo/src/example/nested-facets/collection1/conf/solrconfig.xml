@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ Copyright (c) 2014, Sindice Limited. All Rights Reserved.
+
+ This file is part of the SIREn project.
+
+ SIREn is not an open-source software. It is owned by Sindice Limited. SIREn
+ is licensed for evaluation purposes only under the terms and conditions of
+ the Sindice Limited Development License Agreement. Any form of modification
+ or reverse-engineering of SIREn is forbidden. SIREn is distributed without
+ any warranty.
+-->
+
+<!--
+     For more details about configurations options, see
+     http://wiki.apache.org/solr/SolrConfigXml.
+-->
+<config>
+
+  <luceneMatchVersion>4.6</luceneMatchVersion>
+
+  <!-- Data Directory -->
+  <dataDir>${solr.data.dir:}</dataDir>
+
+  <!-- The DirectoryFactory to use for indexes -->
+  <directoryFactory name="DirectoryFactory"
+                    class="${solr.directoryFactory:solr.NRTCachingDirectoryFactory}"/>
+
+  <!-- Codec factories allow the use of the custom SIREn codec -->
+  <codecFactory class="solr.SchemaCodecFactory"/>
+
+  <schemaFactory class="ManagedIndexSchemaFactory">
+       <bool name="mutable">true</bool>
+       <str name="managedSchemaResourceName">managed-schema</str>
+  </schemaFactory>
+
+  <!-- The default high-performance update handler -->
+  <updateHandler class="solr.DirectUpdateHandler2">
+
+    <!-- Enables a transaction log -->
+    <updateLog>
+      <str name="dir">${solr.ulog.dir:}</str>
+    </updateLog>
+
+    <!-- AutoCommit -->
+     <autoCommit>
+       <maxTime>${solr.autoCommit.maxTime:15000}</maxTime>
+       <openSearcher>false</openSearcher>
+     </autoCommit>
+
+    <!-- softAutoCommit -->
+
+     <autoSoftCommit>
+       <maxTime>${solr.autoSoftCommit.maxTime:-1}</maxTime>
+     </autoSoftCommit>
+
+  </updateHandler>
+
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+       Query section - these settings control query time things like caches
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <query>
+    <!-- Max Boolean Clauses -->
+    <maxBooleanClauses>1024</maxBooleanClauses>
+
+
+    <!-- Solr Internal Query Caches -->
+
+    <!-- Filter Cache -->
+    <filterCache class="solr.FastLRUCache"
+                 size="512"
+                 initialSize="512"
+                 autowarmCount="0"/>
+
+    <!-- Query Result Cache -->
+    <queryResultCache class="solr.LRUCache"
+                     size="512"
+                     initialSize="512"
+                     autowarmCount="0"/>
+
+    <!-- Document Cache -->
+    <documentCache class="solr.LRUCache"
+                   size="512"
+                   initialSize="512"
+                   autowarmCount="0"/>
+
+    <!-- Lazy Field Loading -->
+    <enableLazyFieldLoading>true</enableLazyFieldLoading>
+
+   <!-- Result Window Size -->
+   <queryResultWindowSize>20</queryResultWindowSize>
+
+   <!-- Maximum number of documents to cache for any entry in the
+        queryResultCache.
+     -->
+   <queryResultMaxDocsCached>200</queryResultMaxDocsCached>
+
+    <!-- Use Cold Searcher -->
+    <useColdSearcher>false</useColdSearcher>
+
+    <!-- Max Warming Searchers -->
+    <maxWarmingSearchers>2</maxWarmingSearchers>
+
+  </query>
+
+  <!-- Update Request Handler -->
+  <requestHandler name="/update" class="solr.UpdateRequestHandler" >
+       <lst name="defaults">
+           <!-- @experimental feature, may change in the next release -->
+           <str name="update.chain">generate-facets-processor</str>
+       </lst>
+  </requestHandler>
+
+  <!-- Admin Handlers -->
+  <requestHandler name="/admin/"
+                  class="solr.admin.AdminHandlers" />
+
+  <!-- ping/healthcheck -->
+  <requestHandler name="/admin/ping" class="solr.PingRequestHandler">
+    <lst name="invariants">
+      <str name="q">solrpingquery</str>
+    </lst>
+    <lst name="defaults">
+      <str name="echoParams">all</str>
+    </lst>
+  </requestHandler>
+
+  <!-- Echo the request contents back to the client -->
+  <requestHandler name="/debug/dump" class="solr.DumpRequestHandler" >
+    <lst name="defaults">
+     <str name="echoParams">explicit</str>
+     <str name="echoHandler">true</str>
+    </lst>
+  </requestHandler>
+
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+       SIREn section - Extension of solrconfig.xml to integrate SIREn
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+  <!-- Register the SIREn's Concise Tree query parser. -->
+  <queryParser name="json" class="com.sindicetech.siren.solr.qparser.tree.TreeQParserPlugin">
+    <str name="qnames">qnames.txt</str>
+  </queryParser>
+
+  <!-- Register the json query handler, and set it as the default one -->
+  <requestHandler name="/json" default="true" class="solr.SearchHandler">
+    <!-- default values for query parameters -->
+    <lst name="defaults">
+      <str name="defType">json</str>
+      <str name="echoParams">explicit</str>
+      <str name="df">json</str>
+      <str name="fl">id</str>
+    </lst>
+  </requestHandler>
+
+  <!-- Legacy config for the admin interface -->
+  <admin>
+    <defaultQuery>*:*</defaultQuery>
+  </admin>
+
+  <!-- Generate facet fields -->
+  <!-- @experimental feature, may change in the next release -->
+ <updateRequestProcessorChain name="generate-facets-processor">
+    <processor class="com.sindicetech.siren.solr.facet.SirenFacetProcessorFactory">
+       <lst name="typeMapping">
+         <str name="valueClass">http://www.w3.org/2001/XMLSchema#long</str>
+         <str name="fieldType">tlong</str>
+       </lst>
+       <lst name="typeMapping">
+         <str name="valueClass">http://www.w3.org/2001/XMLSchema#double</str>
+         <str name="fieldType">tdouble</str>
+       </lst>
+       <lst name="typeMapping">
+         <str name="valueClass">http://www.w3.org/2001/XMLSchema#boolean</str>
+         <str name="valueClass">http://www.w3.org/2001/XMLSchema#string</str>
+         <str name="fieldType">string</str>
+       </lst>
+    </processor>
+    <processor class="solr.RunUpdateProcessorFactory" />
+  </updateRequestProcessorChain>
+
+</config>

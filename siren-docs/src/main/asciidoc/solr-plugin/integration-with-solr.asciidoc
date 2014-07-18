@@ -1,0 +1,27 @@
+[[integration-with-Solr]]
+== Integration with Solr
+
+The SIREn Solr plugin provides all the SIREn functionality to Solr
+users. The SIREn plugin is fully integrated with Solr, and it is also possible to freely combine Solr
+features with SIREn queries.
+
+[float]
+=== Mixing SIREn and Solr Fields
+
+If you have a nested data structure to index, you can theoretically always put it in a single JSON typed field and have
+it indexed by SIREn. However, this might not be the most optimal choice in all scenarios.
+
+While SIREn does offer advanced indexing and querying capabilities, there are a range of features that SIREn does not
+yet fully support. This currently includes sorting of fields, storage and retrieval of field values, comprehensive
+faceting support.
+
+By adding some of these fields to Solr by "flattening" the nested data structure, you can benefit from the additional
+Solr functionality, such as storing and retrieval, faceting, sorting, etc. To illustrate, we can use some of the fields
+in the sample data shown in the <<solr-getting-started, Getting Started>>. Candidate fields include:
+
+* Primitive fields attached to the root of the json object, e.g., `ChargeDeviceRef`
+* Nested fields with a 1..1 relationship to the root of the json object, e.g., `DeviceController : TelephoneNo`. You
+  need to encode the path in the field name, such as `DeviceController.TelephoneNo`.
+* Nested fields with 1..* relationships, e.g., `Connector : ChargeMode`. These will be stored as multi-valued fields in
+  Solr. However, note that in this case, if you turn sibling properties like `ChargeMode` and `ChargeMethod` into Solr
+  multi-valued fields, Solr will return incorrect results if you query for both simultaneously.

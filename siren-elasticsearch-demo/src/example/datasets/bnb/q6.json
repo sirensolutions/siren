@@ -1,0 +1,16 @@
+{
+  "twig" : {
+    "root" : "type",
+    "child" : [ {
+      "occur" : "MUST",
+      "node" : {
+        "query" : "text"
+      }
+    }, {
+      "occur" : "MUST",
+      "node" : {
+        "query" : "monographic"
+      }
+    } ]
+  }
+}
