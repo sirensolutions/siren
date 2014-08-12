@@ -68,10 +68,10 @@ as follow:
 ## Resources
 
 SIREn web site:
-  http://sirendb.com/
+  http://siren.solutions/
 
 You can download SIREn at:
-  http://sirendb.com/
+  http://siren.solutions/siren/downloads/
 
 Please join the SIREn-User mailing list by subscribing at:
   https://groups.google.com/a/sindicetech.com/forum/embed/?place=forum/siren-user
