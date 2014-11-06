@@ -461,7 +461,7 @@ public class AForFrameDecompressorGenerator {
    * @throws IOException
    */
   public static void main(final String[] args) throws IOException {
-    final File file = new File("./src/main/java/org/sindice/siren/index/codecs/block", "AForFrameDecompressor.java");
+    final File file = new File("./src/main/java/com/sindicetech/siren/index/codecs/block", "AForFrameDecompressor.java");
     final AForFrameDecompressorGenerator generator = new AForFrameDecompressorGenerator();
     generator.generate(file);
   }

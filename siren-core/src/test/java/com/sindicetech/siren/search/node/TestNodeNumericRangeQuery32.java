@@ -396,55 +396,55 @@ public class TestNodeNumericRangeQuery32 extends SirenTestCase {
     index.searcher = newSearcher(index.reader);
 
     Query q = twq(1)
-      .with(child(must(nmqInt("field4", NumericUtils.PRECISION_STEP_DEFAULT, null, null, true, true)
+      .with(child(must(nmqInt("field4", 4, null, null, true, true)
       .bound(2, 2)))).getLuceneProxyQuery();
     TopDocs topDocs = index.searcher.search(q, 10);
     assertEquals("Score doc count", 3,  topDocs.scoreDocs.length );
 
     q = twq(1)
-      .with(child(must(nmqInt("field4", NumericUtils.PRECISION_STEP_DEFAULT, null, null, false, false)
+      .with(child(must(nmqInt("field4", 4, null, null, false, false)
       .bound(2, 2)))).getLuceneProxyQuery();
     topDocs = index.searcher.search(q, 10);
     assertEquals("Score doc count", 3,  topDocs.scoreDocs.length );
 
     q = twq(1)
-      .with(child(must(nmqInt("field4", NumericUtils.PRECISION_STEP_DEFAULT, Integer.MIN_VALUE, Integer.MAX_VALUE, true, true)
+      .with(child(must(nmqInt("field4", 4, Integer.MIN_VALUE, Integer.MAX_VALUE, true, true)
       .bound(2, 2)))).getLuceneProxyQuery();
     topDocs = index.searcher.search(q, 10);
     assertEquals("Score doc count", 3,  topDocs.scoreDocs.length );
 
     q = twq(1)
-      .with(child(must(nmqInt("field4", NumericUtils.PRECISION_STEP_DEFAULT, Integer.MIN_VALUE, Integer.MAX_VALUE, false, false)
+      .with(child(must(nmqInt("field4", 4, Integer.MIN_VALUE, Integer.MAX_VALUE, false, false)
       .bound(2, 2)))).getLuceneProxyQuery();
     topDocs = index.searcher.search(q, 10);
     assertEquals("Score doc count", 1,  topDocs.scoreDocs.length );
 
     q = twq(1)
-      .with(child(must(nmqInt("field4", NumericUtils.PRECISION_STEP_DEFAULT, null, null, true, true)
+      .with(child(must(nmqInt("field4", 4, null, null, true, true)
       .bound(2, 2)))).getLuceneProxyQuery();
     topDocs = index.searcher.search(q, 10);
     assertEquals("Score doc count", 3,  topDocs.scoreDocs.length );
 
     q = twq(1)
-      .with(child(must(nmqFloat("float4", NumericUtils.PRECISION_STEP_DEFAULT, null, null, false, false)
+      .with(child(must(nmqFloat("float4", 4, null, null, false, false)
       .bound(2, 2)))).getLuceneProxyQuery();
     topDocs = index.searcher.search(q, 10);
     assertEquals("Score doc count", 3,  topDocs.scoreDocs.length );
 
     q = twq(1)
-      .with(child(must(nmqFloat("float4", NumericUtils.PRECISION_STEP_DEFAULT, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY, true, true)
+      .with(child(must(nmqFloat("float4", 4, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY, true, true)
       .bound(2, 2)))).getLuceneProxyQuery();
     topDocs = index.searcher.search(q, 10);
     assertEquals("Score doc count", 3,  topDocs.scoreDocs.length );
 
     q = twq(1)
-      .with(child(must(nmqFloat("float4", NumericUtils.PRECISION_STEP_DEFAULT, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY, false, false)
+      .with(child(must(nmqFloat("float4", 4, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY, false, false)
       .bound(2, 2)))).getLuceneProxyQuery();
     topDocs = index.searcher.search(q, 10);
     assertEquals("Score doc count", 1,  topDocs.scoreDocs.length );
 
     q = twq(1)
-      .with(child(must(nmqFloat("float4", NumericUtils.PRECISION_STEP_DEFAULT, Float.NaN, Float.NaN, true, true)
+      .with(child(must(nmqFloat("float4", 4, Float.NaN, Float.NaN, true, true)
       .bound(2, 2)))).getLuceneProxyQuery();
     topDocs = index.searcher.search(q, 10);
     assertEquals("Score doc count", FLOAT_NANs.length,  topDocs.scoreDocs.length );

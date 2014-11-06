@@ -55,7 +55,7 @@ Lets take a look at a truncated sample record of the NCPR dataset that is used i
 }
 ----
 
-You do not have to write a single line of configuration to index this complex dataset. Schemaless indexing allows SIREn
+You do not have to write a single line of configuration to index this complex object. Schemaless indexing allows SIREn
 to automatically infer and index:
 
 * A diverse set of native JSON datatypes - string, int, float and boolean

@@ -15,7 +15,7 @@ In this model, there is no difference between an attribute name and an attribute
 can be analyzed and searched. It becomes possible to use full-text search on the attribute name (something that is not
 possible in a Lucene-based system).
 This is particularly useful when dealing with data with complex attribute names. For example in RDF or JSON-LD datasets,
-attribute names are URIs, e.g., `http://schema.org/givenName` that is not very friendly to query by end-users. It is
+attribute names are URIs, e.g., `http://schema.org/givenName`, which are not very friendly to query by end-users. It is
 generally preferable to analyze such attribute names and index multiple variations of them, e.g., the full URI, the local name:
 `givenName`, a tokenized version of the local name: `given name`, etc., so that users have the choice of using
 full-text search on attribute names.
@@ -60,9 +60,9 @@ image::images/extended-indexing-model.png["Extended indexing model of the JSON o
 [[concise-json-indexing-model]]
 === Concise Model
 
-The concise indexing model gives up some of its flexibility for an increase in performance. This model is combining the
+The concise indexing model gives up some flexibility for an increase in performance. This model is combining the
 <<field-based-indexing-model, field-based indexing>> approach of Lucene with the tree model of SIREn.
-This provides a boost of performance for attribute or path based queries, in exchange of the ability to perform
+This provides a boost of performance for attribute or path-based queries, in exchange of the ability to perform
 full-text search on the attribute name.
 
 The concise indexing model maps the previous JSON object to the tree model shown in <<concise-indexing-model>>.

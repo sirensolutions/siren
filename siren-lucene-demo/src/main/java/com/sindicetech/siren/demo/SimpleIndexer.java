@@ -17,13 +17,18 @@
  */
 package com.sindicetech.siren.demo;
 
+import com.sindicetech.siren.analysis.ConciseJsonTokenizer;
+import com.sindicetech.siren.analysis.filter.DatatypeAnalyzerFilter;
+import com.sindicetech.siren.analysis.filter.PathEncodingFilter;
+import com.sindicetech.siren.analysis.filter.PositionAttributeFilter;
+import com.sindicetech.siren.analysis.filter.SirenPayloadFilter;
+import com.sindicetech.siren.index.codecs.siren10.Siren10AForPostingsFormat;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenStream;
-import org.apache.lucene.analysis.core.LowerCaseFilter;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.codecs.Codec;
 import org.apache.lucene.codecs.PostingsFormat;
-import org.apache.lucene.codecs.lucene46.Lucene46Codec;
+import org.apache.lucene.codecs.lucene49.Lucene49Codec;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.Field.Store;
@@ -34,13 +39,6 @@ import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
-
-import com.sindicetech.siren.analysis.ConciseJsonTokenizer;
-import com.sindicetech.siren.analysis.filter.DatatypeAnalyzerFilter;
-import com.sindicetech.siren.analysis.filter.PathEncodingFilter;
-import com.sindicetech.siren.analysis.filter.PositionAttributeFilter;
-import com.sindicetech.siren.analysis.filter.SirenPayloadFilter;
-import com.sindicetech.siren.index.codecs.siren10.Siren10AForPostingsFormat;
 
 import java.io.File;
 import java.io.IOException;
@@ -69,7 +67,7 @@ public class SimpleIndexer {
   }
 
   private IndexWriter initializeIndexWriter() throws IOException {
-    final IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_46,
+    final IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_4_9,
       this.initializeAnalyzer());
 
     // Register the SIREn codec
@@ -84,12 +82,11 @@ public class SimpleIndexer {
       @Override
       protected TokenStreamComponents createComponents(final String fieldName,
                                                        final Reader reader) {
-        final Version matchVersion = Version.LUCENE_46;
+        final Version matchVersion = Version.LUCENE_4_9;
         final ConciseJsonTokenizer src = new ConciseJsonTokenizer(reader);
         TokenStream tok = new DatatypeAnalyzerFilter(src,
           new StandardAnalyzer(matchVersion),
           new StandardAnalyzer(matchVersion));
-        tok = new LowerCaseFilter(matchVersion, tok);
         // The PathEncodingFilter is mandatory only for the ConciseJsonTokenizer
         PathEncodingFilter pathFilter = new PathEncodingFilter(tok);
         // here we tell the path filter to preserve the original tokens,
@@ -131,7 +128,7 @@ public class SimpleIndexer {
    * Simple example of a SIREn codec that will use the SIREn posting format
    * for a given field.
    */
-  private class Siren10Codec extends Lucene46Codec {
+  private class Siren10Codec extends Lucene49Codec {
 
     PostingsFormat defaultTestFormat = new Siren10AForPostingsFormat();
 

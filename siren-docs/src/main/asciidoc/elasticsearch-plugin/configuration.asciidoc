@@ -60,7 +60,7 @@ If the attribute wildcard setting is disabled, a node query will always expect a
         "tree" : {
             "node" : {
                 "attribute" : "PostTown",
-                "query" : "Norwich"
+                "query" : "Peterborough"
             }
         }
     }
@@ -75,7 +75,7 @@ The following query is only valid if the attribute wildcard has been enabled:
     "query" : {
         "tree" : {
             "node" : {
-                "query" : "Norwich"
+                "query" : "Peterborough"
             }
         }
     }
@@ -105,7 +105,7 @@ siren:
 
 This configuration registers a single string datatype analyzer with the name `http://www.w3.org/2001/XMLSchema#string`.
 At index time the standard Elasticsearch analyzer should be used while at query time a custom analyzer called
-`lowerWhitespaceAnalyzer`. This is to show that you can refer to and use your custom analyzers defined in `elasticsearch.yml`.
+`lowerWhitespace`. This is to show that you can refer to and use your custom analyzers defined in `elasticsearch.yml`.
 
 In the first group of the settings, prefixed by siren.analysis.datatype, we configure the mapping between the
 datatype name and the analyzer name. For example, the datatype `http://www.w3.org/2001/XMLSchema#string` will be

@@ -75,7 +75,7 @@ of a document (instead of indexing the whole document).
 
 For more information please read...
 
- * http://sirendb.com/docs/
+ * http://siren.solutions/docs/
    For online documentation about SIREn
  * http://www.elasticsearch.org/guide/
    For a tutorial on how to use ElasticSearch

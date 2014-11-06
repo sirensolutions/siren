@@ -1,12 +1,12 @@
 #!/bin/bash
 
-r="\e[31m" #red
-lr="\e[91m" #light red
-g="\e[32m" #green
-lg="\e[92m"
-lgr="\e[37m" #light gray
-dgr="\e[90m" # dark gray
-d="\e[39m" # default
+r="\033[31m" #red
+lr="\033[91m" #light red
+g="\033[32m" #green
+lg="\033[92m"
+lgr="\033[37m" #light gray
+dgr="\033[90m" # dark gray
+d="\033[39m" # default
 
 # prints with interpreting color sequences and reverts text formatting to default
 print() {

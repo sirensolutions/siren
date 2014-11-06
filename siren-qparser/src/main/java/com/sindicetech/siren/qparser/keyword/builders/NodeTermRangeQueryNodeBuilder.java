@@ -76,7 +76,7 @@ implements KeywordQueryBuilder {
 
     // if it is tagged as a span query
     if (rangeNode.getTag(QueryTypeProcessor.QUERYTYPE_TAG) == QueryTypeProcessor.SPAN_QUERYTYPE) {
-      return new MultiTermSpanQuery<NodeTermRangeQuery>(rangeQuery);
+      return new MultiTermSpanQuery<>(rangeQuery);
     }
     else {
       return rangeQuery;

@@ -18,16 +18,15 @@
  */
 package com.sindicetech.siren.analysis;
 
+import com.sindicetech.siren.analysis.attributes.DatatypeAttribute;
+import com.sindicetech.siren.analysis.attributes.JsonNodeAttributeImpl;
+import com.sindicetech.siren.analysis.attributes.NodeAttribute;
 import org.apache.lucene.analysis.Tokenizer;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.analysis.tokenattributes.OffsetAttribute;
 import org.apache.lucene.analysis.tokenattributes.PositionIncrementAttribute;
 import org.apache.lucene.analysis.tokenattributes.TypeAttribute;
-
-import com.sindicetech.siren.analysis.attributes.DatatypeAttribute;
-import com.sindicetech.siren.analysis.attributes.JsonNodeAttributeImpl;
-import com.sindicetech.siren.analysis.attributes.NodeAttribute;
-
+import org.apache.lucene.util.AttributeFactory;
 import java.io.IOException;
 import java.io.Reader;
 

@@ -12,7 +12,7 @@ $ curl -XPOST "http://localhost:9200/ncpr/_search?pretty" -d '
         "tree" : {                        <2>
             "node" : {
                 "attribute" : "PostTown",
-                "query" : "Norwich"
+                "query" : "Peterborough"
             }
         }
     }

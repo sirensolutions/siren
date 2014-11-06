@@ -18,14 +18,18 @@
  */
 package com.sindicetech.siren.qparser.tree;
 
+import com.sindicetech.siren.qparser.tree.dsl.AbstractQuery;
+import com.sindicetech.siren.qparser.tree.dsl.ConciseQueryBuilder;
+import com.sindicetech.siren.qparser.tree.dsl.NodeQuery;
+import com.sindicetech.siren.qparser.tree.dsl.TwigQuery;
+import com.sindicetech.siren.search.node.LuceneProxyNodeQuery;
+import com.sindicetech.siren.search.node.NodeBooleanQuery;
 import org.apache.lucene.queryparser.flexible.core.QueryNodeException;
 import org.apache.lucene.search.Query;
 import org.junit.Test;
 
-import com.sindicetech.siren.qparser.tree.ConciseTreeQueryParser;
-import com.sindicetech.siren.qparser.tree.dsl.*;
-
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ConciseTreeQueryParserTest {
 
@@ -60,6 +64,22 @@ public class ConciseTreeQueryParserTest {
                                 .with(build.newNode("a").setAttribute("round"))
                                 .with(build.newNode("2006"));
     assertParser(twig);
+  }
+
+  /**
+   * Checks that a keyword query that returns an {@link org.apache.lucene.queryparser.flexible.core.nodes.MatchNoDocsQueryNode}
+   * is converted into an empty {@link com.sindicetech.siren.search.node.NodeBooleanQuery}.
+   *
+   * See #73.
+   */
+  @Test
+  public void testKeywordParserReturnsMatchNoDoc() throws QueryNodeException {
+    final ConciseTreeQueryParser parser = new ConciseTreeQueryParser();
+    final Query output = parser.parse("{\"node\":{\"query\":\"\"}}", "");
+    assertTrue(output instanceof LuceneProxyNodeQuery);
+    com.sindicetech.siren.search.node.NodeQuery nodeQuery = ((LuceneProxyNodeQuery) output).getNodeQuery();
+    assertTrue(nodeQuery instanceof NodeBooleanQuery);
+    assertTrue(((NodeBooleanQuery) nodeQuery).clauses().isEmpty());
   }
 
   private static void assertParser(final AbstractQuery query) throws QueryNodeException {

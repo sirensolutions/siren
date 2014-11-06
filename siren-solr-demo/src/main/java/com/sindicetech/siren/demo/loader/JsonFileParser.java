@@ -32,13 +32,14 @@ public class JsonFileParser {
 
   private volatile boolean isFinished = false;
   private final JsonParser jp;
+  private static final MappingJsonFactory factory = new MappingJsonFactory();
 
-  public JsonFileParser(final InputStream in) throws JsonParseException, IOException {
+  public JsonFileParser(final InputStream in) throws IOException {
     jp = createParser(in);
     setParserToFirstObject();
   }
 
-  private void setParserToFirstObject() throws JsonParseException, IOException {
+  private void setParserToFirstObject() throws IOException {
     JsonToken token = jp.nextToken();
     if (token == JsonToken.START_ARRAY) {
       jp.nextToken();
@@ -54,8 +55,8 @@ public class JsonFileParser {
 
   }
 
-  private JsonParser createParser(InputStream in) throws JsonParseException, IOException {
-    return new MappingJsonFactory().createJsonParser(in);
+  private JsonParser createParser(InputStream in) throws IOException {
+    return factory.createJsonParser(in);
   }
 
   public boolean hasNext() {
@@ -69,7 +70,7 @@ public class JsonFileParser {
    * @throws JsonProcessingException
    * @throws IOException
    */
-  public JsonNode next() throws JsonProcessingException, IOException {
+  public JsonNode next() throws IOException {
     JsonNode node = jp.readValueAsTree();
     JsonToken token = jp.nextToken();
     if (token == null || token == JsonToken.END_ARRAY) {

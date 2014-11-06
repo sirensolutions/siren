@@ -46,7 +46,7 @@ The keyword query handler is configured by default. You can enter in the field
 
 to get a list of JSON objects containing the term 'Newcastle'
 
-    http://localhost:8983/solr/collection1/json?q={+%22node%22+%3A+{+%22query%22+%3A+%22Newcastle%22+}+}&wt=json
+    http://localhost:8983/solr/collection1/select?q={+%22node%22+%3A+{+%22query%22+%3A+%22Newcastle%22+}+}&wt=json
 
 or more complex query
 
@@ -64,7 +64,7 @@ or more complex query
 
 to get a list of JSON objects which are owned by the organisation 'Transport Scotland'
 
-    http://localhost:8983/solr/collection1/json?q={%0A++%22twig%22+%3A+{%0A++++%22root%22+%3A+%22DeviceOwner%22%2C%0A++++%22child%22+%3A+[+{%0A++++++%22node%22+%3A+{%0A++++++++%22query%22+%3A+%22transport+scotland%22%2C%0A++++++++%22attribute%22+%3A+%22OrganisationName%22%0A++++++}%0A++++}+]%0A++}%0A}&wt=json
+    http://localhost:8983/solr/collection1/select?q={%0A++%22twig%22+%3A+{%0A++++%22root%22+%3A+%22DeviceOwner%22%2C%0A++++%22child%22+%3A+[+{%0A++++++%22node%22+%3A+{%0A++++++++%22query%22+%3A+%22transport+scotland%22%2C%0A++++++++%22attribute%22+%3A+%22OrganisationName%22%0A++++++}%0A++++}+]%0A++}%0A}&wt=json
 
 We provide also some examples on how to query programmatically the Solr/SIREn
 instance in the class NCPRQuery.java. You can use the query-ncpr.sh script to execute it:

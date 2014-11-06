@@ -13,45 +13,43 @@ typed with native JSON types. You can see a truncated sample record below.
 [source,javascript]
 ----
 {
-    "ChargeDeviceId": "4d61996cb5a40f214058d84fc7aba126",
-    "ChargeDeviceName": "4c Design Limited, Glasgow (1)",
-    "ChargeDeviceRef": "SCOT1",
+    "ChargeDeviceId": "885b2c7a6deb4fea10f319c4ce993e02",
+    "ChargeDeviceName": "All Eco Centre Car Park",
+    "ChargeDeviceRef": "CM765",
     "Accessible24Hours": false,
     ...
 
     "DeviceController": {
         "ContactName": null,
-        "OrganisationName": "Part of the Charge Your Car network",
-        "TelephoneNo": "0191 26 50 500",
-        "Website": "http://chargeyourcar.org.uk/ev-driver/"
+        "OrganisationName": "Source East",
+        "TelephoneNo": "08455198676",
+        "Website": "www.sourceeast.net"
     },
 
     "ChargeDeviceLocation": {
-        "LocationShortDescription": "4c Design Limited, Glasgow",
-        "Latitude": 55.875192,
-        "Longitude": -4.249105,
+        "Latitude": 52.5744,
+        "Longitude": -0.2396,
 
         "Address": {
-            "BuildingNumber": "100",
-            "Street": "Borron Street",
-            "PostCode": "G4 9XG",
-            "PostTown": "Glasgow",
+            "Street": "City Road",
+            "PostCode": "PE1 1SA",
+            "PostTown": "Peterborough",
             "Country": "gb"
         },
     },
 
     "Connector": [
         {
-            "ConnectorId": "1",
-            "ChargeMode": 3,
+            "ConnectorId": "CM765a",
+            "ChargeMode": 1,
             "ChargeMethod": "Single Phase AC",
             "ChargePointStatus": "In service",
-            "ConnectorType": "IEC 62196-2 type 2",
-            "RatedOutputCurrent": 32
+            "ConnectorType": "Domestic plug/socket type G (BS 1363)",
+            "RatedOutputCurrent": 13
         },
         {
-            "ConnectorId": "2",
-            "ChargeMode": "1",
+            "ConnectorId": "CM765b",
+            "ChargeMode": "3",
             "ChargeMethod": "Single Phase AC",
             ...
         }
@@ -62,7 +60,7 @@ typed with native JSON types. You can see a truncated sample record below.
 [float]
 === Downloading the SIREn/Solr Distribution
 
-If you haven't yet, http://sirendb.com/downloads/[download] the SIREn/Solr binary distribution. Next, extract
+If you haven't yet, http://siren.solutions/downloads/[download] the SIREn/Solr binary distribution. Next, extract
 it to a directory which we will call `${SOLR_HOME}` from now on. The directory should contain:
 
 ----
@@ -90,9 +88,9 @@ In the output, you should see a line like the following which indicates that the
 
 [source,bash]
 --------------------------------------------------
-1814 [main] INFO  org.apache.solr.core.SolrResourceLoader  – Adding '$SOLR_HOME/example/solr/lib/siren-core-1.3-SNAPSHOT.jar' to classloader
-1815 [main] INFO  org.apache.solr.core.SolrResourceLoader  – Adding '$SOLR_HOME/example/solr/lib/siren-qparser-1.3-SNAPSHOT.jar' to classloader
-1816 [main] INFO  org.apache.solr.core.SolrResourceLoader  – Adding '$SOLR_HOME/example/solr/lib/siren-solr-1.3-SNAPSHOT.jar' to classloader
+1814 [main] INFO  org.apache.solr.core.SolrResourceLoader  – Adding '$SOLR_HOME/example/solr/lib/siren-core-${version}.jar' to classloader
+1815 [main] INFO  org.apache.solr.core.SolrResourceLoader  – Adding '$SOLR_HOME/example/solr/lib/siren-qparser-${version}.jar' to classloader
+1816 [main] INFO  org.apache.solr.core.SolrResourceLoader  – Adding '$SOLR_HOME/example/solr/lib/siren-solr-${version}.jar' to classloader
 --------------------------------------------------
 
 [float]

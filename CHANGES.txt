@@ -1,3 +1,34 @@
+======================= Release 1.4 =========================
+
+Documentation
+
+* [GH-51] Fixed typos and inconsistency in documentation
+* [GH-56] Add documentation about the nested parameter for the Solr plugin
+
+New Features
+
+* [GH-64] Update request handler to simplify the indexing of JSON documents
+* [GH-69] Support for regexp operators within qnames
+
+Improvements
+
+* [GH-29] Upgrade to Lucene/Solr 4.9 and Elasticsearch 1.3.2
+* [GH-39] Simplify the configuration of json field in schema
+* [GH-61] Enable the configuration of the NodeBooleanQuery#maxBooleanClauses from the Solr API
+* [GH-68] Add option to the qparser for allowing leading wildcard
+* [GH-78] Upgrade to Lucene/Solr 4.9.1 and ES 1.3.4
+
+Bugs
+
+* [GH-48] Rename Elasticsearch plugin zip file
+* [GH-60] The main query is ignored when a nested query is defined
+* [GH-62] Incorrect lower case filter in analyzer of siren lucene demo
+* [GH-66] Change the default value of the keyword qparser to false for LowercaseExpandedTerms
+* [GH-70] Siren10PostingsReader does not properly compute pending positions
+* [GH-73] Exception thrown for non-matching doc keyword query
+* [GH-83] NPE with LukeRequestHandler
+* [GH-85] Colors are NOT displayed when siren-elasticsearch-demo query scripts are executed on OSX
+
 ======================= Release 1.3 =========================
 
 New Features
@@ -10,7 +41,7 @@ Bugs
 * [GH-13] Last query of the demo movie returns 0 result
 * [GH-15] Query parser assigns node attribute to incorrect node
 * [GH-17] Node query should not propagate sentinel values for the node and level constraints
-* [GH-22] Incomplete node cosntraints management in MultiNodeTermQuery
+* [GH-22] Incomplete node constraints management in MultiNodeTermQuery
 
 Improvements
 

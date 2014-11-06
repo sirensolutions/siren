@@ -18,14 +18,11 @@
  */
 package com.sindicetech.siren.qparser.keyword;
 
+import com.sindicetech.siren.qparser.keyword.config.ExtendedKeywordQueryConfigHandler;
+import com.sindicetech.siren.util.SirenTestCase;
 import org.apache.lucene.queryparser.flexible.core.QueryNodeException;
 import org.apache.lucene.queryparser.flexible.core.config.ConfigurationKey;
 import org.apache.lucene.search.Query;
-import com.sindicetech.siren.util.SirenTestCase;
-
-import com.sindicetech.siren.qparser.keyword.ExtendedKeywordQueryParser;
-import com.sindicetech.siren.qparser.keyword.StandardExtendedKeywordQueryParser;
-import com.sindicetech.siren.qparser.keyword.config.ExtendedKeywordQueryConfigHandler;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -61,25 +58,10 @@ public abstract class BaseKeywordQueryParserTest {
     return this.parse(new StandardExtendedKeywordQueryParser(), keys, query);
   }
 
-  protected void _assertSirenQuery(final ExtendedKeywordQueryParser parser, final Query expected, final String query)
-  throws Exception {
-    assertEquals(expected, this.parse(parser, null, query));
-    assertEquals(expected, this.parse(parser, null, expected.toString()));
-  }
-
   protected void _assertSirenQuery(final Query expected, final String query)
   throws Exception {
     assertEquals(expected, this.parse(null, query));
     assertEquals(expected, this.parse(null, expected.toString()));
-  }
-
-  protected void _assertSirenQuery(final ExtendedKeywordQueryParser parser,
-                                   final HashMap<ConfigurationKey, Object> keys,
-                                   final Query expected,
-                                   final String query)
-  throws Exception {
-    assertEquals(expected, parse(parser, keys, query));
-    assertEquals(expected, parse(parser, keys, expected.toString()));
   }
 
   protected void _assertSirenQuery(final HashMap<ConfigurationKey, Object> keys,

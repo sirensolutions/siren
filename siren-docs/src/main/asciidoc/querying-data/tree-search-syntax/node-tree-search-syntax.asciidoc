@@ -58,8 +58,8 @@ equal or superior to 1. For example, the following query matches only nodes that
 
 The parameter `range` enables to constrain a node based on its position, the position of a node being relative to the
 other child nodes of its parent node. The value of the parameter must be an
-array of two positive integers, representing the lower and upper bound of the position range. For example, given
-the following two JSON objects:
+array of two positive integers, representing the lower and upper bound of the position range. The position index starts at 0.
+For example, given the following two JSON objects:
 
 [source,javascript]
 ----

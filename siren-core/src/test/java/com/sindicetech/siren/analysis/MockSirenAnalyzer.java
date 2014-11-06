@@ -18,15 +18,14 @@
  */
 package com.sindicetech.siren.analysis;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
-
+import com.sindicetech.siren.analysis.filter.PositionAttributeFilter;
+import com.sindicetech.siren.analysis.filter.SirenPayloadFilter;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenStream;
 
-import com.sindicetech.siren.analysis.filter.PositionAttributeFilter;
-import com.sindicetech.siren.analysis.filter.SirenPayloadFilter;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
 
 public class MockSirenAnalyzer extends Analyzer {
 

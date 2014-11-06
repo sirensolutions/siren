@@ -5,14 +5,14 @@
   <parent>
     <groupId>com.sindicetech.siren</groupId>
     <artifactId>siren-parent</artifactId>
-    <version>1.3</version>
+    <version>1.4</version>
     <relativePath>../siren-parent</relativePath>
   </parent>
 
   <artifactId>siren-solr-demo</artifactId>
   <name>siren-solr-demo</name>
   <description>SIREn Solr plugin demo</description>
-  <url>http://sirendb.com</url>
+  <url>http://siren.solutions</url>
 
   <licenses>
     <license>

@@ -17,18 +17,12 @@
  */
 package com.sindicetech.siren.solr.qparser.tree;
 
-import org.apache.solr.common.params.CommonParams;
 import org.apache.solr.common.params.SolrParams;
 import org.apache.solr.request.SolrQueryRequest;
-import org.apache.solr.schema.FieldType;
-import org.apache.solr.schema.SchemaField;
 import org.apache.solr.search.QParser;
-import org.apache.solr.search.QueryParsing;
 
 import com.sindicetech.siren.solr.qparser.SirenQParser;
 import com.sindicetech.siren.solr.qparser.SirenQParserPlugin;
-import com.sindicetech.siren.solr.schema.ConciseTreeField;
-import com.sindicetech.siren.solr.schema.ExtendedTreeField;
 
 /**
  * Implementation of {@link com.sindicetech.siren.solr.qparser.SirenQParserPlugin} for the
@@ -42,6 +36,7 @@ public class TreeQParserPlugin extends SirenQParserPlugin {
 
     SirenQParser parser = new TreeQParser(qstr, localParams, params, req);
     parser.setQNames(this.getQNames());
+    parser.setAllowLeadingWildcard(this.getAllowLeadingWildcard());
 
     return parser;
   }

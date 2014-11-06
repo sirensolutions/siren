@@ -18,6 +18,19 @@
  */
 package com.sindicetech.siren.qparser.keyword;
 
+import com.sindicetech.siren.analysis.*;
+import com.sindicetech.siren.analysis.filter.ASCIIFoldingExpansionFilter;
+import com.sindicetech.siren.qparser.keyword.config.ExtendedKeywordQueryConfigHandler.KeywordConfigurationKeys;
+import com.sindicetech.siren.qparser.keyword.nodes.TwigQueryNode;
+import com.sindicetech.siren.qparser.keyword.nodes.WildcardNodeQueryNode;
+import com.sindicetech.siren.qparser.keyword.processors.NodeNumericQueryNodeProcessor;
+import com.sindicetech.siren.qparser.keyword.processors.NodeNumericRangeQueryNodeProcessor;
+import com.sindicetech.siren.search.AbstractTestSirenScorer;
+import com.sindicetech.siren.search.node.*;
+import com.sindicetech.siren.search.node.NodeBooleanClause.Occur;
+import com.sindicetech.siren.util.JSONDatatype;
+import com.sindicetech.siren.util.SirenTestCase;
+import com.sindicetech.siren.util.XSDDatatype;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.core.KeywordAnalyzer;
@@ -42,35 +55,20 @@ import org.apache.lucene.util.BytesRef;
 import org.apache.lucene.util.LuceneTestCase;
 import org.junit.Ignore;
 import org.junit.Test;
-import com.sindicetech.siren.search.AbstractTestSirenScorer;
-import com.sindicetech.siren.util.SirenTestCase;
-
-import com.sindicetech.siren.analysis.*;
-import com.sindicetech.siren.analysis.filter.ASCIIFoldingExpansionFilter;
-import com.sindicetech.siren.qparser.keyword.StandardExtendedKeywordQueryParser;
-import com.sindicetech.siren.qparser.keyword.config.ExtendedKeywordQueryConfigHandler.KeywordConfigurationKeys;
-import com.sindicetech.siren.qparser.keyword.nodes.TwigQueryNode;
-import com.sindicetech.siren.qparser.keyword.nodes.WildcardNodeQueryNode;
-import com.sindicetech.siren.qparser.keyword.processors.NodeNumericQueryNodeProcessor;
-import com.sindicetech.siren.qparser.keyword.processors.NodeNumericRangeQueryNodeProcessor;
-import com.sindicetech.siren.search.node.*;
-import com.sindicetech.siren.search.node.NodeBooleanClause.Occur;
-import com.sindicetech.siren.util.JSONDatatype;
-import com.sindicetech.siren.util.XSDDatatype;
 
 import java.io.Reader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static com.sindicetech.siren.search.AbstractTestSirenScorer.BooleanClauseBuilder.*;
 import static com.sindicetech.siren.search.AbstractTestSirenScorer.BooleanQueryBuilder.bq;
 import static com.sindicetech.siren.search.AbstractTestSirenScorer.NodeBooleanQueryBuilder.nbq;
 import static com.sindicetech.siren.search.AbstractTestSirenScorer.NodePhraseQueryBuilder.npq;
 import static com.sindicetech.siren.search.AbstractTestSirenScorer.NodeTermQueryBuilder.ntq;
 import static com.sindicetech.siren.search.AbstractTestSirenScorer.TwigQueryBuilder.twq;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @SuppressWarnings("rawtypes")
 public class BasicSyntaxTest extends BaseKeywordQueryParserTest {
@@ -204,6 +202,7 @@ public class BasicSyntaxTest extends BaseKeywordQueryParserTest {
 
     final String df = SirenTestCase.DEFAULT_TEST_FIELD;
     final NodeRegexpQuery q = new NodeRegexpQuery(new Term(SirenTestCase.DEFAULT_TEST_FIELD, "[a-z][123]"));
+    q.setDatatype("http://www.w3.org/2001/XMLSchema#string");
     this._assertSirenQuery(config, q, "/[a-z][123]/");
     config.put(ConfigurationKeys.LOWERCASE_EXPANDED_TERMS, true);
     this._assertSirenQuery(config, q, "/[A-Z][123]/");
@@ -214,28 +213,35 @@ public class BasicSyntaxTest extends BaseKeywordQueryParserTest {
     this._assertSirenQuery(config, q, "/[A-Z][123]/^0.5");
     config.put(KeywordConfigurationKeys.MULTI_NODE_TERM_REWRITE_METHOD, MultiNodeTermQuery.CONSTANT_SCORE_AUTO_REWRITE_DEFAULT);
 
-    final Query escaped = new NodeRegexpQuery(new Term(df, "[a-z]\\/[123]"));
+    final NodeRegexpQuery escaped = new NodeRegexpQuery(new Term(df, "[a-z]\\/[123]"));
+    escaped.setDatatype("http://www.w3.org/2001/XMLSchema#string");
     this._assertSirenQuery(config, escaped, "/[a-z]\\/[123]/");
-    final Query escaped2 = new NodeRegexpQuery(new Term(df, "[a-z]\\*[123]"));
+    final NodeRegexpQuery escaped2 = new NodeRegexpQuery(new Term(df, "[a-z]\\*[123]"));
+    escaped2.setDatatype("http://www.w3.org/2001/XMLSchema#string");
     this._assertSirenQuery(config, escaped2, "/[a-z]\\*[123]/");
 
-    final HashMap<String, Analyzer> dtAnalyzers = new HashMap<String, Analyzer>();
+    final HashMap<String, Analyzer> dtAnalyzers = new HashMap<>();
     dtAnalyzers.put(XSDDatatype.XSD_STRING, new WhitespaceAnalyzer(LuceneTestCase.TEST_VERSION_CURRENT));
     config.put(KeywordConfigurationKeys.DATATYPES_ANALYZERS, dtAnalyzers);
 
     final NodeBooleanQuery complex = new NodeBooleanQuery();
-    complex.add(new NodeRegexpQuery(new Term(df, "[a-z]\\/[123]")), NodeBooleanClause.Occur.MUST);
+    NodeRegexpQuery nestedRegexp = new NodeRegexpQuery(new Term(df, "[a-z]\\/[123]"));
+    nestedRegexp.setDatatype("http://www.w3.org/2001/XMLSchema#string");
+    complex.add(nestedRegexp, NodeBooleanClause.Occur.MUST);
     complex.add(ntq("/etc/init.d/").getQuery(), Occur.MUST);
     complex.add(ntq("/etc/init[.]d/lucene/").getQuery(), Occur.SHOULD);
     this._assertSirenQuery(config, complex, "+/[a-z]\\/[123]/ +\"/etc/init.d/\" OR \"/etc\\/init\\[.\\]d/lucene/\" ");
 
-    Query re = new NodeRegexpQuery(new Term(df, "http.*"));
+    NodeRegexpQuery re = new NodeRegexpQuery(new Term(df, "http.*"));
+    re.setDatatype("http://www.w3.org/2001/XMLSchema#string");
     this._assertSirenQuery(config, re, "/http.*/");
 
     re = new NodeRegexpQuery(new Term(df, "http~0.5"));
+    re.setDatatype("http://www.w3.org/2001/XMLSchema#string");
     this._assertSirenQuery(config, re, "/http~0.5/");
 
     re = new NodeRegexpQuery(new Term(df, "boo"));
+    re.setDatatype("http://www.w3.org/2001/XMLSchema#string");
     this._assertSirenQuery(config, re, "/boo/");
 
     this._assertSirenQuery(config, ntq("/boo/").getQuery(), "\"/boo/\"");
@@ -243,11 +249,16 @@ public class BasicSyntaxTest extends BaseKeywordQueryParserTest {
 
     config.put(ConfigurationKeys.DEFAULT_OPERATOR, Operator.OR);
     final NodeBooleanQuery two = new NodeBooleanQuery();
-    two.add(new NodeRegexpQuery(new Term(df, "foo")), Occur.SHOULD);
-    two.add(new NodeRegexpQuery(new Term(df, "bar")), Occur.SHOULD);
+    re = new NodeRegexpQuery(new Term(df, "foo"));
+    re.setDatatype("http://www.w3.org/2001/XMLSchema#string");
+    two.add(re, Occur.SHOULD);
+    re = new NodeRegexpQuery(new Term(df, "bar"));
+    re.setDatatype("http://www.w3.org/2001/XMLSchema#string");
+    two.add(re, Occur.SHOULD);
     this._assertSirenQuery(config, two, "/foo/ /bar/");
 
     final NodeRegexpQuery regexpQueryexp = new NodeRegexpQuery(new Term(df, "[abc]?[0-9]"));
+    regexpQueryexp.setDatatype("http://www.w3.org/2001/XMLSchema#string");
     this._assertSirenQuery(config, regexpQueryexp, "/[abc]?[0-9]/");
   }
 
@@ -370,6 +381,24 @@ public class BasicSyntaxTest extends BaseKeywordQueryParserTest {
                     .setDatatype("uri")
                     .getLuceneProxyQuery();
     this._assertSirenQuery(config, q, "uri('foaf:name')");
+  }
+
+  @Test
+  public void testQNameWithRegexp()
+  throws Exception {
+    final String qnames = "./src/test/resources/conf/qnames";
+    final HashMap<ConfigurationKey, Object> config = new HashMap<ConfigurationKey, Object>();
+    config.put(KeywordConfigurationKeys.QNAMES, this.loadQNamesFile(qnames));
+    final Map<String, Analyzer> dts = new HashMap<String, Analyzer>();
+    dts.put("uri", new AnyURIAnalyzer(LuceneTestCase.TEST_VERSION_CURRENT));
+    config.put(KeywordConfigurationKeys.DATATYPES_ANALYZERS, dts);
+
+    final NodeRegexpQuery wq = new NodeRegexpQuery(new Term(SirenTestCase.DEFAULT_TEST_FIELD, "http://xmlns.com/foaf/0.1/nam*"));
+    wq.setDatatype("uri");
+    Query q = new LuceneProxyNodeQuery(wq);
+
+    assertEquals(q, parse(config, "uri(/foaf:nam*/)"));
+    // do not try to parse the output, as it generates a URI that needs to be escaped -> non valid query
   }
 
   @Test
@@ -561,7 +590,8 @@ public class BasicSyntaxTest extends BaseKeywordQueryParserTest {
   @Test
   public void testFuzzyQuery2()
   throws Exception {
-    final NodeQuery q1 = new NodeFuzzyQuery(new Term(SirenTestCase.DEFAULT_TEST_FIELD, "michel"));
+    final NodeFuzzyQuery q1 = new NodeFuzzyQuery(new Term(SirenTestCase.DEFAULT_TEST_FIELD, "michel"));
+    q1.setDatatype("http://www.w3.org/2001/XMLSchema#string");
     this._assertSirenQuery(new LuceneProxyNodeQuery(q1), "michel~");
 
     final TwigQuery q2 = new TwigQuery(1);
@@ -569,11 +599,13 @@ public class BasicSyntaxTest extends BaseKeywordQueryParserTest {
     this._assertSirenQuery(new LuceneProxyNodeQuery(q2), "* : michel~");
 
     final int numEdits = FuzzyQuery.floatToEdits(0.8f, "michel".codePointCount(0, "michel".length()));
-    final NodeQuery q3 = new NodeFuzzyQuery(new Term(SirenTestCase.DEFAULT_TEST_FIELD, "michel"), numEdits);
+    final NodeFuzzyQuery q3 = new NodeFuzzyQuery(new Term(SirenTestCase.DEFAULT_TEST_FIELD, "michel"), numEdits);
+    q3.setDatatype("http://www.w3.org/2001/XMLSchema#string");
     this._assertSirenQuery(new LuceneProxyNodeQuery(q3), "michel~0.8");
 
     // first tilde is escaped, not the second one
-    final NodeQuery q4 = new NodeFuzzyQuery(new Term(SirenTestCase.DEFAULT_TEST_FIELD, "http://sw.deri.org/~aida"));
+    final NodeFuzzyQuery q4 = new NodeFuzzyQuery(new Term(SirenTestCase.DEFAULT_TEST_FIELD, "http://sw.deri.org/~aida"));
+    q4.setDatatype("http://www.w3.org/2001/XMLSchema#string");
     this._assertSirenQuery(new LuceneProxyNodeQuery(q4), "'http://sw.deri.org/~aida'~");
   }
 
@@ -587,7 +619,8 @@ public class BasicSyntaxTest extends BaseKeywordQueryParserTest {
   @Test
   public void testWildcardQuery2()
   throws Exception {
-    final NodeQuery q1 = new NodeWildcardQuery(new Term(SirenTestCase.DEFAULT_TEST_FIELD, "st*e.ca?as"));
+    final NodeWildcardQuery q1 = new NodeWildcardQuery(new Term(SirenTestCase.DEFAULT_TEST_FIELD, "st*e.ca?as"));
+    q1.setDatatype("http://www.w3.org/2001/XMLSchema#string");
     this._assertSirenQuery(new LuceneProxyNodeQuery(q1), "st*e.ca?as");
   }
 
@@ -986,14 +1019,15 @@ public class BasicSyntaxTest extends BaseKeywordQueryParserTest {
   @Test
   public void testPrefixQuery()
   throws Exception {
-    final Query ntq = new LuceneProxyNodeQuery(
-      new NodePrefixQuery(new Term(SirenTestCase.DEFAULT_TEST_FIELD, "lit"))
-    );
+    NodePrefixQuery prefix = new NodePrefixQuery(new Term(SirenTestCase.DEFAULT_TEST_FIELD, "lit"));
+    prefix.setDatatype("http://www.w3.org/2001/XMLSchema#string");
+    final Query ntq = new LuceneProxyNodeQuery(prefix);
     this._assertSirenQuery(ntq, "lit*");
 
     final TwigQuery twq = new TwigQuery(1);
-    twq.addChild(new NodePrefixQuery(new Term(SirenTestCase.DEFAULT_TEST_FIELD, "lit")),
-      NodeBooleanClause.Occur.MUST);
+    prefix = new NodePrefixQuery(new Term(SirenTestCase.DEFAULT_TEST_FIELD, "lit"));
+    prefix.setDatatype("http://www.w3.org/2001/XMLSchema#string");
+    twq.addChild(prefix, NodeBooleanClause.Occur.MUST);
     this._assertSirenQuery(new LuceneProxyNodeQuery(twq), "* : lit*");
   }
 
@@ -1314,9 +1348,9 @@ public class BasicSyntaxTest extends BaseKeywordQueryParserTest {
   @Test
   public void testRegexQueries()
   throws Exception {
-    final Query reg = new LuceneProxyNodeQuery(
-      new NodeRegexpQuery(new Term(SirenTestCase.DEFAULT_TEST_FIELD, "s*e"))
-    );
+    NodeRegexpQuery regexp = new NodeRegexpQuery(new Term(SirenTestCase.DEFAULT_TEST_FIELD, "s*e"));
+    regexp.setDatatype("http://www.w3.org/2001/XMLSchema#string");
+    final Query reg = new LuceneProxyNodeQuery(regexp);
     this._assertSirenQuery(reg, "/s*e/");
   }
 

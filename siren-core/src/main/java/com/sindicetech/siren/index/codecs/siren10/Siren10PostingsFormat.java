@@ -20,6 +20,8 @@
 package com.sindicetech.siren.index.codecs.siren10;
 
 import org.apache.lucene.codecs.*;
+import org.apache.lucene.codecs.blocktree.BlockTreeTermsReader;
+import org.apache.lucene.codecs.blocktree.BlockTreeTermsWriter;
 import org.apache.lucene.index.SegmentReadState;
 import org.apache.lucene.index.SegmentWriteState;
 

@@ -19,27 +19,18 @@
 
 package com.sindicetech.siren.search.node;
 
-import static com.sindicetech.siren.analysis.MockSirenToken.node;
-import static com.sindicetech.siren.search.AbstractTestSirenScorer.BooleanClauseBuilder.must;
-import static com.sindicetech.siren.search.AbstractTestSirenScorer.BooleanClauseBuilder.not;
-import static com.sindicetech.siren.search.AbstractTestSirenScorer.BooleanClauseBuilder.should;
-import static com.sindicetech.siren.search.AbstractTestSirenScorer.NodeBooleanQueryBuilder.nbq;
-
-import java.io.IOException;
-
-import org.apache.lucene.index.Term;
-import org.apache.lucene.search.BooleanClause;
-import org.apache.lucene.search.BooleanQuery;
-import org.apache.lucene.search.Query;
-import org.apache.lucene.search.TermQuery;
-import org.apache.lucene.search.TopDocs;
-import org.junit.Test;
-
 import com.sindicetech.siren.index.DocsAndNodesIterator;
 import com.sindicetech.siren.index.codecs.RandomSirenCodec.PostingsFormatType;
 import com.sindicetech.siren.search.AbstractTestSirenScorer;
-import com.sindicetech.siren.search.node.NodeBooleanQuery;
-import com.sindicetech.siren.search.node.NodeScorer;
+import org.apache.lucene.index.Term;
+import org.apache.lucene.search.*;
+import org.junit.Test;
+
+import java.io.IOException;
+
+import static com.sindicetech.siren.analysis.MockSirenToken.node;
+import static com.sindicetech.siren.search.AbstractTestSirenScorer.BooleanClauseBuilder.*;
+import static com.sindicetech.siren.search.AbstractTestSirenScorer.NodeBooleanQueryBuilder.nbq;
 
 public class TestNodeBooleanScorer extends AbstractTestSirenScorer {
 
@@ -47,6 +38,19 @@ public class TestNodeBooleanScorer extends AbstractTestSirenScorer {
   protected void configure() throws IOException {
     this.setAnalyzer(AnalyzerType.TUPLE);
     this.setPostingsFormat(PostingsFormatType.RANDOM);
+  }
+
+  /**
+   * Checks that an emtpy node boolean query is returning a null scorer (== no match)
+   */
+  @Test
+  public void testEmptyBoolean() throws Exception {
+    this.addDocuments(
+      "\"aaa bbb\" \"aaa ccc\" . ",
+      "\"aaa\" \"aaa bbb\" . "
+    );
+
+    assertNull(this.getScorer(new NodeBooleanQuery()));
   }
 
   @Test

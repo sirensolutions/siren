@@ -112,7 +112,7 @@ public class ExtendedKeywordQueryConfigHandler extends QueryConfigHandler {
     this.set(ConfigurationKeys.ALLOW_LEADING_WILDCARD, false); // default in 2.9
     this.set(ConfigurationKeys.ANALYZER, null); //default value 2.4
     this.set(ConfigurationKeys.PHRASE_SLOP, 0); //default value 2.4
-    this.set(ConfigurationKeys.LOWERCASE_EXPANDED_TERMS, true); //default value 2.4
+    this.set(ConfigurationKeys.LOWERCASE_EXPANDED_TERMS, false); // we should not lowercase expanded terms (#66)
     this.set(ConfigurationKeys.FIELD_BOOST_MAP, new LinkedHashMap<String, Float>());
     this.set(ConfigurationKeys.FUZZY_CONFIG, new FuzzyConfig());
     this.set(ConfigurationKeys.LOCALE, Locale.getDefault());

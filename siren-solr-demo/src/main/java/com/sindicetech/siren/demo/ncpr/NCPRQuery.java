@@ -124,7 +124,7 @@ public class NCPRQuery {
                 .toString();
     final SolrQuery query = new SolrQuery();
     query.setQuery(q);
-    query.addFacetField("DeviceController_facet");
+    query.addFacetField("DeviceController.OrganisationName");
     return query;
   }
 
@@ -139,7 +139,7 @@ public class NCPRQuery {
                 .toString();
     final SolrQuery query = new SolrQuery();
     query.setQuery(q);
-    query.setParam("nested", "{!lucene} name:university");
+    query.setParam("nested", "{!lucene} ChargeDeviceName:university");
     return query;
   }
 

@@ -26,11 +26,6 @@
   <directoryFactory name="DirectoryFactory"
                     class="${solr.directoryFactory:solr.NRTCachingDirectoryFactory}"/>
 
-  <!-- Codec factories allow the use of the custom SIREn codec -->
-  <codecFactory class="solr.SchemaCodecFactory"/>
-
-  <schemaFactory class="ClassicIndexSchemaFactory"/>
-
   <!-- The default high-performance update handler -->
   <updateHandler class="solr.DirectUpdateHandler2">
 
@@ -129,19 +124,61 @@
        SIREn section - Extension of solrconfig.xml to integrate SIREn
        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-  <!-- Register the SIREn's Concise Tree query parser. -->
-  <queryParser name="json" class="com.sindicetech.siren.solr.qparser.tree.TreeQParserPlugin">
+  <!-- Codec factories allow the use of the custom SIREn codec -->
+  <codecFactory class="solr.SchemaCodecFactory"/>
+
+  <!-- Manged index schema allows the use of the SIREn update request handler -->
+  <schemaFactory class="ManagedIndexSchemaFactory">
+    <bool name="mutable">true</bool>
+    <str name="managedSchemaResourceName">managed-schema</str>
+  </schemaFactory>
+
+  <!-- The SIREn's Update Request Handler -->
+  <requestHandler name="/siren/add" class="com.sindicetech.siren.solr.handler.SirenUpdateRequestHandler" >
+
+    <lst name="default">
+      <str name="fieldType">text</str>
+    </lst>
+
+    <lst name="json">
+      <str name="fieldType">concise</str>
+    </lst>
+
+    <lst name="optional">
+      <str name="type">String</str>
+      <str name="fieldType">text</str>
+    </lst>
+
+    <lst name="optional">
+      <str name="type">Long</str>
+      <str name="fieldType">mv-long</str>
+    </lst>
+
+    <lst name="optional">
+      <str name="type">Integer</str>
+      <str name="fieldType">mv-long</str>
+    </lst>
+
+    <lst name="optional">
+      <str name="path">DeviceController.OrganisationName</str>
+      <str name="fieldType">facet</str>
+    </lst>
+
+  </requestHandler>
+
+  <!-- Register the SIREn's Tree query parser. -->
+  <queryParser name="tree" class="com.sindicetech.siren.solr.qparser.tree.TreeQParserPlugin">
     <str name="qnames">qnames.txt</str>
   </queryParser>
 
   <!-- Register the json query handler, and set it as the default one -->
-  <requestHandler name="/json" default="true" class="solr.SearchHandler">
+  <requestHandler name="/tree" default="true" class="solr.SearchHandler">
     <!-- default values for query parameters -->
     <lst name="defaults">
-      <str name="defType">json</str>
+      <str name="defType">tree</str>
       <str name="echoParams">explicit</str>
-      <str name="df">json</str>
-     <str name="fl">id</str>
+      <str name="df">_json_</str>
+      <str name="fl">id</str>
     </lst>
   </requestHandler>
 

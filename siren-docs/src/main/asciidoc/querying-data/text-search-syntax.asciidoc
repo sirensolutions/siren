@@ -124,7 +124,7 @@ Parenthesis `(...)` can be used to group and nest boolean clauses.
 
 *OR*::
   The binary operator `OR` performs a disjunction of two terms. For example, the query `NY OR (New York)`
-  matches nodes in which either the word ``NY'' or both the words``New'' and ``York'' appear.
+  matches nodes in which either the word ``NY'' or both the words ``New'' and ``York'' appear.
   The symbol `||` can be used in place of the keyword `OR`.
 
 *NOT*::
@@ -146,7 +146,7 @@ The query syntax extends the boolean syntax for grouping to introduce proximity 
 boolean expressions that must satisfy some proximity and ordering constraints. These boolean expressions are similar to
 the phrase query in that they all restricts terms matches based on their position, but these boolean expressions are
 much more expressive. In order to activate proximity constraints on a boolean expression, you must append to the right
-parenthesis of the boolean group the symbol `~` or `#` followed by an positive integer. The integer indicates the
+parenthesis of the boolean group the symbol `~` or `#` followed by a positive integer. The integer indicates the
 maximum allowed slop, i.e., the maximum distance that is allowed among all the clauses of the boolean expressions. The
 symbol `#` indicates that the required clauses must match in order, while the symbol `~` indicates that they can match
 in any order.

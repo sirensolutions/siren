@@ -50,7 +50,7 @@ import com.sindicetech.siren.qparser.keyword.processors.KeywordQueryNodeProcesso
  * <p>
  *
  * Examples of appropriately formatted queries can be found in the <a
- * href="{@docRoot}/org/sindice/siren/qparser/keyword/package-summary.html#package_description">
+ * href="{@docRoot}/com/sindicetech/siren/qparser/keyword/package-summary.html#package_description">
  * query syntax documentation</a>.
  *
  * <p>

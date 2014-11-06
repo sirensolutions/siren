@@ -11,24 +11,20 @@
  */
 package com.sindicetech.siren.solr.qparser.tree;
 
+import com.sindicetech.siren.solr.schema.ConciseJsonField;
+import com.sindicetech.siren.solr.schema.ExtendedJsonField;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.queryparser.flexible.core.QueryNodeException;
-import org.apache.lucene.queryparser.flexible.core.QueryParserHelper;
 import org.apache.lucene.search.Query;
 import org.apache.solr.common.SolrException;
-import org.apache.solr.common.params.CommonParams;
 import org.apache.solr.common.params.SolrParams;
 import org.apache.solr.request.SolrQueryRequest;
 import org.apache.solr.schema.FieldType;
-import org.apache.solr.schema.SchemaField;
-import org.apache.solr.search.QueryParsing;
 import org.apache.solr.search.SyntaxError;
 
 import com.sindicetech.siren.qparser.tree.ConciseTreeQueryParser;
 import com.sindicetech.siren.qparser.tree.ExtendedTreeQueryParser;
 import com.sindicetech.siren.solr.qparser.SirenQParser;
-import com.sindicetech.siren.solr.schema.ConciseTreeField;
-import com.sindicetech.siren.solr.schema.ExtendedTreeField;
 
 import java.util.Map;
 
@@ -55,19 +51,20 @@ public class TreeQParser extends SirenQParser {
     ExtendedTreeQueryParser parser;
 
     FieldType fieldType = req.getSchema().getField(field).getType();
-    if (fieldType instanceof ConciseTreeField) {
+    if (fieldType instanceof ConciseJsonField) {
       parser = new ConciseTreeQueryParser();
-    } else if (fieldType instanceof ExtendedTreeField) {
+    } else if (fieldType instanceof ExtendedJsonField) {
       parser = new ExtendedTreeQueryParser();
     } else {
       throw new RuntimeException(String.format("Field %s is of type %s which is neither %s nor %s which are the only " +
           "supported.",
-          field, fieldType.getClass().getName(), ConciseTreeField.class.getName(), ExtendedTreeField.class.getName()));
+          field, fieldType.getClass().getName(), ConciseJsonField.class.getName(), ExtendedJsonField.class.getName()));
     }
 
     parser.setDefaultOperator(this.getDefaultOperator());
     parser.getKeywordQueryParser().setQNames(qnames);
     parser.getKeywordQueryParser().setDatatypeAnalyzers(datatypeConfig);
+    parser.getKeywordQueryParser().setAllowLeadingWildcard(this.allowLeadingWildcard);
 
     try {
       return parser.parse(qstr, field);

@@ -2,7 +2,7 @@
 == Setup
 
 This section provides information on how to setup the SIREn plugin in an Elasticsearch installation.
-If you haven't yet, http://sirendb.com/downloads/[download the SIREn plugin] and follow the instructions below.
+If you haven't yet, http://siren.solutions/downloads/[download the SIREn plugin] and follow the instructions below.
 
 [float]
 === Requirements
@@ -52,7 +52,7 @@ in the Elasticsearch log:
 === How to upgrade the plugin
 
 [start=1]
-. Go to the Elasticserach directory:
+. Go to the Elasticsearch directory:
 
 [source,bash]
 --------------------------------------------------

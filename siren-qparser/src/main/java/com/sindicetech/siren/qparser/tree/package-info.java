@@ -35,7 +35,7 @@
  * {@link KeywordQueryParser}, with the twig query syntax being disabled.
  * Examples of appropriately formatted keyword
  * queries can be found in the <a
- * href="{@docRoot}/org/sindice/siren/qparser/keyword/package-summary.html#package_description">
+ * href="{@docRoot}/com/sindicetech/siren/qparser/keyword/package-summary.html#package_description">
  * keyword query syntax documentation</a>.
  * </p>
  *

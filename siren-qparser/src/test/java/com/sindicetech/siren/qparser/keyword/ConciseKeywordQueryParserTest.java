@@ -18,25 +18,21 @@
  */
 package com.sindicetech.siren.qparser.keyword;
 
-import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.index.Term;
-import org.apache.lucene.search.BooleanQuery;
-import org.apache.lucene.search.Query;
-import org.apache.lucene.util.BytesRef;
-import org.junit.Test;
-import com.sindicetech.siren.util.SirenTestCase;
-
 import com.sindicetech.siren.analysis.IntNumericAnalyzer;
-import com.sindicetech.siren.qparser.keyword.ConciseKeywordQueryParser;
 import com.sindicetech.siren.qparser.keyword.builders.concise.ConciseNodeNumericRangeQuery;
 import com.sindicetech.siren.search.node.*;
+import com.sindicetech.siren.util.SirenTestCase;
+import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.index.Term;
+import org.apache.lucene.util.BytesRef;
+import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
 import static com.sindicetech.siren.search.AbstractTestSirenScorer.NodePhraseQueryBuilder.npq;
 import static com.sindicetech.siren.search.AbstractTestSirenScorer.NodeTermQueryBuilder.ntq;
+import static org.junit.Assert.assertEquals;
 
 public class ConciseKeywordQueryParserTest {
 
@@ -51,12 +47,12 @@ public class ConciseKeywordQueryParserTest {
     assertEquals(q, parser.parse("", SirenTestCase.DEFAULT_TEST_FIELD));
   }
 
-  // if no attribute defined, an empty query must be converted into an empty boolean query
+  // if no attribute defined, an empty query must be converted into an empty node boolean query
   @Test
-  public void testEmptyNodeTermQuerywithNoAttribute() throws Exception {
+  public void testEmptyNodeTermQueryWithNoAttribute() throws Exception {
     ConciseKeywordQueryParser parser = new ConciseKeywordQueryParser();
 
-    final BooleanQuery q = new BooleanQuery();
+    final NodeBooleanQuery q = new NodeBooleanQuery();
 
     assertEquals(q, parser.parse("", SirenTestCase.DEFAULT_TEST_FIELD));
   }
@@ -102,7 +98,8 @@ public class ConciseKeywordQueryParserTest {
     ConciseKeywordQueryParser parser = new ConciseKeywordQueryParser();
     parser.setAttribute("aaa");
 
-    Query q = new NodeRegexpQuery(new Term(SirenTestCase.DEFAULT_TEST_FIELD, "aaa:b*d"));
+    NodeRegexpQuery q = new NodeRegexpQuery(new Term(SirenTestCase.DEFAULT_TEST_FIELD, "aaa:b*d"));
+    q.setDatatype("http://www.w3.org/2001/XMLSchema#string");
 
     assertEquals(q, parser.parse("/b*d/", SirenTestCase.DEFAULT_TEST_FIELD));
 
@@ -112,6 +109,7 @@ public class ConciseKeywordQueryParserTest {
     parser = new ConciseKeywordQueryParser();
 
     q = new NodeRegexpQuery(new Term(SirenTestCase.DEFAULT_TEST_FIELD, "b*d"));
+    q.setDatatype("http://www.w3.org/2001/XMLSchema#string");
 
     assertEquals(q, parser.parse("/b*d/", SirenTestCase.DEFAULT_TEST_FIELD));
   }
@@ -142,7 +140,8 @@ public class ConciseKeywordQueryParserTest {
     parser.setAttribute("aaa");
 
     // must have a prefix length of 4
-    NodeQuery q = new NodeFuzzyQuery(new Term(SirenTestCase.DEFAULT_TEST_FIELD, "aaa:michel"), NodeFuzzyQuery.defaultMaxEdits, 4);
+    NodeFuzzyQuery q = new NodeFuzzyQuery(new Term(SirenTestCase.DEFAULT_TEST_FIELD, "aaa:michel"), NodeFuzzyQuery.defaultMaxEdits, 4);
+    q.setDatatype("http://www.w3.org/2001/XMLSchema#string");
 
     assertEquals(q, parser.parse("michel~", SirenTestCase.DEFAULT_TEST_FIELD));
 
@@ -151,6 +150,7 @@ public class ConciseKeywordQueryParserTest {
     parser = new ConciseKeywordQueryParser();
 
     q = new NodeFuzzyQuery(new Term(SirenTestCase.DEFAULT_TEST_FIELD, "michel"));
+    q.setDatatype("http://www.w3.org/2001/XMLSchema#string");
 
     assertEquals(q, parser.parse("michel~", SirenTestCase.DEFAULT_TEST_FIELD));
   }
@@ -160,7 +160,8 @@ public class ConciseKeywordQueryParserTest {
     ConciseKeywordQueryParser parser = new ConciseKeywordQueryParser();
     parser.setAttribute("aaa");
 
-    NodeQuery q = new NodePrefixQuery(new Term(SirenTestCase.DEFAULT_TEST_FIELD, "aaa:lit"));
+    NodePrefixQuery q = new NodePrefixQuery(new Term(SirenTestCase.DEFAULT_TEST_FIELD, "aaa:lit"));
+    q.setDatatype("http://www.w3.org/2001/XMLSchema#string");
 
     assertEquals(q, parser.parse("lit*", SirenTestCase.DEFAULT_TEST_FIELD));
 
@@ -169,6 +170,7 @@ public class ConciseKeywordQueryParserTest {
     parser = new ConciseKeywordQueryParser();
 
     q = new NodePrefixQuery(new Term(SirenTestCase.DEFAULT_TEST_FIELD, "lit"));
+    q.setDatatype("http://www.w3.org/2001/XMLSchema#string");
 
     assertEquals(q, parser.parse("lit*", SirenTestCase.DEFAULT_TEST_FIELD));
   }

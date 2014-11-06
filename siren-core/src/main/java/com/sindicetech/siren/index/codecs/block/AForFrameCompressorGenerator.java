@@ -269,7 +269,7 @@ public class AForFrameCompressorGenerator {
    * @throws IOException
    */
   public static void main(final String[] args) throws IOException {
-    final File file = new File("./src/main/java/org/sindice/siren/index/codecs/block", "AForFrameCompressor.java");
+    final File file = new File("./src/main/java/com/sindicetech/siren/index/codecs/block", "AForFrameCompressor.java");
     final AForFrameCompressorGenerator generator = new AForFrameCompressorGenerator();
     generator.generate(file);
   }

@@ -51,7 +51,8 @@
 
     <!-- json indexing scheme -->
     <field name="concise" type="concise" indexed="true" stored="false"/>
-    <field name="concise-tree-attribute-wildcard" type="concise-tree-attribute-wildcard" indexed="true" stored="false"/>
+    <field name="concise-attribute-wildcard" type="concise-attribute-wildcard" indexed="true" stored="false"/>
+    <field name="concise-keyword" type="concise-keyword" indexed="true" stored="false"/>
 
   </fields>
 
@@ -68,34 +69,25 @@
     <!--
       The Concise SIREn field type
     -->
-    <fieldType name="concise" class="com.sindicetech.siren.solr.schema.ConciseTreeField"
+    <fieldType name="concise" class="com.sindicetech.siren.solr.schema.ConciseJsonField"
                omitNorms="true"
-               datatypeConfig="datatypes.xml">
-
-      <analyzer type="index">
-
-        <tokenizer class="com.sindicetech.siren.solr.analysis.ConciseJsonTokenizerFactory"/>
-
-      </analyzer>
-
-    </fieldType>
+               datatypeConfig="datatypes.xml"/>
 
     <!--
       The Concise SIREn field type which is configured to preserve the original tokens
     -->
-    <fieldType name="concise-tree-attribute-wildcard" class="com.sindicetech.siren.solr.schema.ConciseTreeField"
+    <fieldType name="concise-attribute-wildcard" class="com.sindicetech.siren.solr.schema.ConciseJsonField"
                omitNorms="true"
                attributeWildcard="true"
-               datatypeConfig="datatypes.xml">
+               datatypeConfig="datatypes.xml"/>
 
-      <analyzer type="index">
+    <!--
+      Do not tokenize values
+    -->
+    <fieldType name="concise-keyword" class="com.sindicetech.siren.solr.schema.ConciseJsonField"
+               omitNorms="true"
+               datatypeConfig="datatypes-keyword.xml"/>
 
-        <tokenizer class="com.sindicetech.siren.solr.analysis.ConciseJsonTokenizerFactory"/>
-
-      </analyzer>
-
-    </fieldType>
-
- </types>
+  </types>
 
 </schema>

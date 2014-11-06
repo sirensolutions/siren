@@ -56,7 +56,7 @@ import com.sindicetech.siren.qparser.tree.processors.JsonQueryNodeProcessorPipel
  * <p>
  *
  * Examples of appropriately formatted queries can be found in the <a
- * href="{@docRoot}/org/sindice/siren/qparser/json/package-summary.html#package_description">
+ * href="{@docRoot}/com/sindicetech/siren/qparser/json/package-summary.html#package_description">
  * query syntax documentation</a>.
  *
  * <p>

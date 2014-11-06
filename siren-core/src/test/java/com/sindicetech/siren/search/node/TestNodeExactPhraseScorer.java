@@ -19,7 +19,9 @@
 
 package com.sindicetech.siren.search.node;
 
+import static com.sindicetech.siren.analysis.MockSirenDocument.doc;
 import static com.sindicetech.siren.analysis.MockSirenToken.node;
+import static com.sindicetech.siren.analysis.MockSirenToken.token;
 import static com.sindicetech.siren.search.AbstractTestSirenScorer.NodePhraseQueryBuilder.npq;
 
 import java.io.IOException;
@@ -213,5 +215,24 @@ public class TestNodeExactPhraseScorer extends AbstractTestSirenScorer {
 //    assertEquals(0.70, scorer.score(), 0.01);
 //  }
 
+  /**
+   * GH-70: Siren10PostingsReader does not properly compute pending positions
+   * Siren10PostingsReader was not properly decoding termFreqInNode and counting pending positions when
+   * a node was skipped without reading its termFreqInNode.
+   */
+  @Test
+  public void testPositionDecodingAfterSkippingNode() throws Exception {
+    this.setAnalyzer(AnalyzerType.MOCK);
+
+    this.addDocuments(
+      doc(token("person", node(0, 0), 1), token("1", node(0, 0), 1),
+          token("person", node(0, 2, 0), 2), token("2", node(0, 2, 0), 1))
+    );
+
+    // Adding the node level 3 constraint will skip the first node [0,0]
+    final NodePhraseScorer scorer = (NodePhraseScorer) this.getScorer(npq("person", "2").level(3));
+    assertTrue(scorer.nextCandidateDocument());
+    assertTrue(scorer.nextNode());
+  }
 
 }

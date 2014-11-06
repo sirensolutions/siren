@@ -13,45 +13,43 @@ typed with native JSON types. You can see a truncated sample record below.
 [source,javascript]
 ----
 {
-    "ChargeDeviceId": "4d61996cb5a40f214058d84fc7aba126",
-    "ChargeDeviceName": "4c Design Limited, Glasgow (1)",
-    "ChargeDeviceRef": "SCOT1",
+    "ChargeDeviceId": "885b2c7a6deb4fea10f319c4ce993e02",
+    "ChargeDeviceName": "All Eco Centre Car Park",
+    "ChargeDeviceRef": "CM765",
     "Accessible24Hours": false,
     ...
 
     "DeviceController": {
         "ContactName": null,
-        "OrganisationName": "Part of the Charge Your Car network",
-        "TelephoneNo": "0191 26 50 500",
-        "Website": "http://chargeyourcar.org.uk/ev-driver/"
+        "OrganisationName": "Source East",
+        "TelephoneNo": "08455198676",
+        "Website": "www.sourceeast.net"
     },
 
     "ChargeDeviceLocation": {
-        "LocationShortDescription": "4c Design Limited, Glasgow",
-        "Latitude": 55.875192,
-        "Longitude": -4.249105,
+        "Latitude": 52.5744,
+        "Longitude": -0.2396,
 
         "Address": {
-            "BuildingNumber": "100",
-            "Street": "Borron Street",
-            "PostCode": "G4 9XG",
-            "PostTown": "Glasgow",
+            "Street": "City Road",
+            "PostCode": "PE1 1SA",
+            "PostTown": "Peterborough",
             "Country": "gb"
         },
     },
 
     "Connector": [
         {
-            "ConnectorId": "1",
-            "ChargeMode": 3,
+            "ConnectorId": "CM765a",
+            "ChargeMode": 1,
             "ChargeMethod": "Single Phase AC",
             "ChargePointStatus": "In service",
-            "ConnectorType": "IEC 62196-2 type 2",
-            "RatedOutputCurrent": 32
+            "ConnectorType": "Domestic plug/socket type G (BS 1363)",
+            "RatedOutputCurrent": 13
         },
         {
-            "ConnectorId": "2",
-            "ChargeMode": "1",
+            "ConnectorId": "CM765b",
+            "ChargeMode": "3",
             "ChargeMethod": "Single Phase AC",
             ...
         }
@@ -62,7 +60,7 @@ typed with native JSON types. You can see a truncated sample record below.
 [float]
 === Downloading the SIREn/Elasticsearch Distribution
 
-If you haven't yet, http://sirendb.com/downloads/[download] the SIREn/Elasticsearch binary distribution. Next, extract
+If you haven't yet, http://siren.solutions/downloads/[download] the SIREn/Elasticsearch binary distribution. Next, extract
 it to a directory which we will call `${ES_HOME}` from now on. The directory should contain:
 
 ----
@@ -295,7 +293,7 @@ $ curl -XPOST "http://localhost:9200/ncpr/_search?pretty" -d '
 === Running the demos
 
 The SIREn/Elasticsearch distribution contains three demos on three different datasets: NCPR (National Charge Point Registry),
-BNB ((British National Bibliography) and a small movie dataset. To execute the demos, go to the
+BNB (British National Bibliography) and a small movie dataset. To execute the demos, go to the
 `$ES_HOME/example` directory:
 
 [source,bash]
@@ -307,7 +305,7 @@ To index the small movie dataset, execute the following command:
 
 [source,bash]
 --------------------------------------------------
-$ bin/movie-index.sh
+$ bin/movies-index.sh
 --------------------------------------------------
 
 The script creates an index called ``movies'', sets a mapping as shown earlier for the `movie` type, so that all
@@ -318,7 +316,7 @@ You can then query the index using the following command:
 
 [source,bash]
 --------------------------------------------------
-$ bin/movie-query.sh
+$ bin/movies-query.sh
 --------------------------------------------------
 
 The script takes you through a couple of queries and always hints at what results are expected.

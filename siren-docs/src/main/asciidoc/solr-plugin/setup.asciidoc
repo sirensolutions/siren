@@ -2,7 +2,7 @@
 == Setup
 
 This section provides information on how to setup the SIREn plugin in a Solr installation.
-If you haven't yet, http://sirendb.com/downloads/[download the SIREn plugin] and follow the instructions below.
+If you haven't yet, http://siren.solutions/downloads/[download the SIREn plugin] and follow the instructions below.
 
 SIREn is designed as a plugin for Solr. You could easily update your existing Solr installation with SIREn while
 retaining any indexes that you have already created. You could than even start adding documents with nested data to

@@ -18,6 +18,10 @@
 
 package com.sindicetech.siren.solr.qparser;
 
+import com.sindicetech.siren.search.node.NodeBooleanQuery;
+import com.sindicetech.siren.search.node.TwigQuery;
+import com.sindicetech.siren.solr.schema.Datatype;
+import com.sindicetech.siren.solr.schema.ExtendedJsonField;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.queryparser.flexible.standard.config.StandardQueryConfigHandler.Operator;
 import org.apache.lucene.search.BooleanClause.Occur;
@@ -36,9 +40,6 @@ import org.apache.solr.search.SyntaxError;
 import org.apache.solr.util.SolrPluginUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.sindicetech.siren.solr.schema.Datatype;
-import com.sindicetech.siren.solr.schema.ExtendedTreeField;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -59,14 +60,20 @@ import java.util.Properties;
  */
 public abstract class SirenQParser extends QParser {
 
+  protected boolean allowLeadingWildcard;
   protected Properties qnames;
 
-  private static final Logger
-  logger = LoggerFactory.getLogger(SirenQParser.class);
+  private static final Logger logger = LoggerFactory.getLogger(SirenQParser.class);
 
   public SirenQParser(final String qstr, final SolrParams localParams,
                       final SolrParams params, final SolrQueryRequest req) {
     super(qstr, localParams, params, req);
+
+    // change the BooleanQuery maxClauseCount for ALL cores ...
+    // Since QParserPlugin cannot be SolrCoreAware, we cannot do this at plugin init time
+    int maxClauseCount = req.getCore().getSolrConfig().booleanQueryMaxClauseCount;
+    NodeBooleanQuery.setMaxClauseCount(maxClauseCount);
+    TwigQuery.setMaxClauseCount(maxClauseCount);
   }
 
   /**
@@ -76,9 +83,15 @@ public abstract class SirenQParser extends QParser {
     this.qnames = qnames;
   }
 
+  /**
+   * Enable or disable leading wildcard
+   */
+  public void setAllowLeadingWildcard(final boolean allowLeadingWildcard) {
+    this.allowLeadingWildcard = allowLeadingWildcard;
+  }
+
   @Override
   public Query parse() throws SyntaxError {
-//    if (qstr == null || qstr.length()==0) return null;
     final SolrParams solrParams = SolrParams.wrapDefaults(localParams, params);
     final Map<String, Float> boosts = parseQueryFields(req.getSchema(), solrParams);
 
@@ -100,14 +113,16 @@ public abstract class SirenQParser extends QParser {
    */
   private void processMainQuery(BooleanQuery query, final Map<String, Float> boosts, final String qstr)
   throws SyntaxError {
+    BooleanQuery bq = new BooleanQuery(true); // combine the main query for each field in a nested boolean query
     for (final String field : boosts.keySet()) {
       final Map<String, Analyzer> datatypeConfig = this.getDatatypeConfig(field);
       final Query q = this.parse(field, qstr, datatypeConfig);
       if (boosts.get(field) != null) {
         q.setBoost(boosts.get(field));
       }
-      query.add(q, Occur.SHOULD);
+      bq.add(q, Occur.SHOULD);
     }
+    query.add(bq, Occur.MUST); // add the nested boolean query to the main query with the MUST operator - See issue #60
   }
 
   /**
@@ -149,7 +164,7 @@ public abstract class SirenQParser extends QParser {
    */
   private Map<String, Analyzer> getDatatypeConfig(final String field) {
     final Map<String, Analyzer> datatypeConfig = new HashMap<String, Analyzer>();
-    final ExtendedTreeField fieldType = (ExtendedTreeField) req.getSchema().getFieldType(field);
+    final ExtendedJsonField fieldType = (ExtendedJsonField) req.getSchema().getFieldType(field);
     final Map<String, Datatype> datatypes = fieldType.getDatatypes();
 
     for (final Entry<String, Datatype> e : datatypes.entrySet()) {
@@ -195,14 +210,14 @@ public abstract class SirenQParser extends QParser {
   }
 
   /**
-   * Check if all fields are of type {@link com.sindicetech.siren.solr.schema.ExtendedTreeField}.
+   * Check if all fields are of type {@link com.sindicetech.siren.solr.schema.ExtendedJsonField}.
    */
   private static void checkFieldTypes(final IndexSchema indexSchema, final Map<String, Float> queryFields) {
     for (final String fieldName : queryFields.keySet()) {
       final FieldType fieldType = indexSchema.getFieldType(fieldName);
-      if (!(fieldType instanceof ExtendedTreeField)) {
+      if (!(fieldType instanceof ExtendedJsonField)) {
         throw new SolrException(SolrException.ErrorCode.SERVER_ERROR,
-          "FieldType: " + fieldName + " (" + fieldType.getTypeName() + ") do not support Siren's tree query");
+          "FieldType: " + fieldName + " (" + fieldType.getTypeName() + ") do not support SIREn's tree query");
       }
     }
   }

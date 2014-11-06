@@ -641,8 +641,9 @@ public class Siren10PostingsReader extends PostingsReaderBase {
     public int termFreqInNode() throws IOException {
       // nextNode should be called first
       if (termFreqInNodeReadPending) {
-        // scan over any freqs that were ignored during doc iteration
-        while (pendingTermFreqInNodeCount > nodFreq) {
+        // scan over any freqs that were ignored during doc and node iteration
+        // we need to account for the last call to nextNode which decrements pendingNodCount, hence + 1
+        while (pendingTermFreqInNodeCount > pendingNodCount + 1) {
           termFreqInNode = nodReader.nextTermFreqInNode();
           pendingTermFreqInNodeCount--;
           pendingPosNodCount += termFreqInNode;

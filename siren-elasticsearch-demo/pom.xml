@@ -5,14 +5,14 @@
   <parent>
     <groupId>com.sindicetech.siren</groupId>
     <artifactId>siren-parent</artifactId>
-    <version>1.3</version>
+    <version>1.4</version>
     <relativePath>../siren-parent</relativePath>
   </parent>
 
   <artifactId>siren-elasticsearch-demo</artifactId>
   <name>siren-elasticsearch-demo</name>
   <description>SIREn Elasticsearch plugin demo</description>
-  <url>http://sirendb.com</url>
+  <url>http://siren.solutions</url>
   <packaging>pom</packaging>
 
   <licenses>
@@ -38,7 +38,7 @@
             <copy todir="${dest}">
               <fileset dir="${rootdir}/siren-elasticsearch-demo/src/example" />
             </copy>
-            <unzip src="${rootdir}/siren-elasticsearch/target/siren-elasticsearch-${project.version}-plugin.zip"
+            <unzip src="${rootdir}/siren-elasticsearch/target/siren-elasticsearch-${project.version}.zip"
                    dest="${dest}/plugins/siren-plugin"/>
 
             <chmod dir="${dest}" perm="755" includes="**/*.sh"/>

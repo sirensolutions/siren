@@ -77,10 +77,10 @@
 
     <!-- The StrField type is not analyzed, but indexed/stored verbatim. -->
     <fieldType name="string" class="solr.StrField" sortMissingLast="true" omitNorms="true"/>
-    
+
     <fieldType name="tlong" class="solr.TrieLongField" precisionStep="8" omitNorms="true" />
     <fieldType name="tdouble" class="solr.TrieDoubleField" precisionStep="8" omitNorms="true" />
-    
+
 
     <!-- A text field that uses WordDelimiterFilter to enable splitting and matching of
         words on case-change, alpha numeric boundaries, and non-alphanumeric chars,
@@ -144,18 +144,10 @@
       The index analyzer will be configured with the datatype analyzers that
       are defined in the datatype analyzer configuration file (datatypes.xml).
     -->
-    <fieldType name="json" class="com.sindicetech.siren.solr.schema.ExtendedTreeField"
+    <fieldType name="json" class="com.sindicetech.siren.solr.schema.ExtendedJsonField"
                omitNorms="true"
-               datatypeConfig="datatypes.xml">
+               datatypeConfig="datatypes.xml"/>
 
-      <analyzer type="index">
-
-        <tokenizer class="com.sindicetech.siren.solr.analysis.ExtendedJsonTokenizerFactory"/>
-
-      </analyzer>
-
-    </fieldType>
-
- </types>
+  </types>
 
 </schema>

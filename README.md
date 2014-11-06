@@ -71,7 +71,7 @@ SIREn web site:
   http://siren.solutions/
 
 You can download SIREn at:
-  http://siren.solutions/siren/downloads/
+  http://siren.solutions/
 
 Please join the SIREn-User mailing list by subscribing at:
   https://groups.google.com/a/sindicetech.com/forum/embed/?place=forum/siren-user

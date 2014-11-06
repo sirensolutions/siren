@@ -166,7 +166,7 @@
  *
  *  <p>The SIREn's analyzers, i.e., "concise" and "extended", rely on datatype analyzers to analyze the
  *  content of a JSON document or the keyword of a query. Please refer to the
- *  <a href="{@docRoot}/org/sindice/siren/analysis/package-summary.html#package_description"> for more information
+ *  <a href="{@docRoot}/com/sindicetech/siren/analysis/package-summary.html#package_description"> for more information
  *  about datatypes. Datatype analyzers are configured in the elasticsearch.yml file as follows:</p>
  *
  * <pre>

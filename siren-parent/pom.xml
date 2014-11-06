@@ -4,11 +4,11 @@
 
   <groupId>com.sindicetech.siren</groupId>
   <artifactId>siren-parent</artifactId>
-  <version>1.3</version>
+  <version>1.4</version>
   <packaging>pom</packaging>
   <name>siren-parent</name>
   <description>SIREn parent module</description>
-  <url>http://sirendb.com</url>
+  <url>http://siren.solutions</url>
 
   <licenses>
     <license>
@@ -36,7 +36,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <lucene.version>4.8.1</lucene.version>
+    <lucene.version>4.9.1</lucene.version>
     <jackson.version>1.9.7</jackson.version>
     <root>..</root>
   </properties>
@@ -176,10 +176,10 @@
           <docfilessubdirs>true</docfilessubdirs>
           <!-- Add cross reference links to Lucene javadoc -->
           <links>
-            <link>http://lucene.apache.org/core/4_8_0/core</link>
-            <link>http://lucene.apache.org/core/4_8_0/analyzers-common</link>
-            <link>http://lucene.apache.org/core/4_8_0/codecs</link>
-            <link>http://lucene.apache.org/core/4_8_0/queryparser</link>
+            <link>http://lucene.apache.org/core/4_9_0/core</link>
+            <link>http://lucene.apache.org/core/4_9_0/analyzers-common</link>
+            <link>http://lucene.apache.org/core/4_9_0/codecs</link>
+            <link>http://lucene.apache.org/core/4_9_0/queryparser</link>
           </links>
         </configuration>
       </plugin>

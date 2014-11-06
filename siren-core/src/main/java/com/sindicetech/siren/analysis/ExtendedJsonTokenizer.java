@@ -18,6 +18,8 @@
  */
 package com.sindicetech.siren.analysis;
 
+import org.apache.lucene.util.AttributeFactory;
+
 import java.io.IOException;
 import java.io.Reader;
 

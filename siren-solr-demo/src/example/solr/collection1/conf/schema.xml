@@ -28,17 +28,8 @@
    <!-- _version_ and update log are required for SolrCloud -->
    <field name="_version_" type="long" indexed="true" stored="true"/>
 
-    <!-- The ID of the device -->
+    <!-- The ID -->
     <field name="id" type="string" indexed="true" stored="true"/>
-
-    <!-- The name of the device -->
-    <field name="name" type="text" indexed="true" stored="true"/>
-
-    <!-- Fields for faceting -->
-    <dynamicField name="*_facet" type="string" indexed="true" stored="true" omitTermFreqAndPositions="true"/>
-
-    <!-- json indexing scheme -->
-    <field name="json" type="json" indexed="true" stored="false"/>
 
   </fields>
 
@@ -54,8 +45,14 @@
     <!-- The StrField type is not analyzed, but indexed/stored verbatim. -->
     <fieldType name="string" class="solr.StrField" sortMissingLast="true" omitNorms="true"/>
 
-    <!--Default long field type -->
+    <!-- Long field type (used for field _version_) -->
     <fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0"/>
+
+    <!-- A multi-valued string type for faceting -->
+    <fieldType name="facet" class="solr.StrField" sortMissingLast="true" indexed="true" stored="true" omitNorms="true" omitTermFreqAndPositions="true" multiValued="true"/>
+
+    <!-- A multi-valued long field type that is stored -->
+    <fieldType name="mv-long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0" stored="true" multiValued="true"/>
 
     <!--
       An example of SIREn field type.
@@ -66,14 +63,14 @@
       datatype analyzers that are defined in the datatype analyzer configuration
       file (datatypes.xml).
 
-      Norms must be deactivated with a ExtendedTreeField.
+      Norms must be deactivated with a ConciseJsonField.
 
       The ConciseTreeField is the default SIREn field type. It provides the best
       performance. If your scenario involves tokenising and searching attribute names,
-      you have to switch to the com.sindicetech.siren.solr.schema.ExtendedTreeFieldeeField and the
-      com.sindicetech.siren.solr.analysis.ExtendedJsonTokenizerFactoryrFactory.
+      you have to switch to the com.sindicetech.siren.solr.schema.ExtendedJsonField and the
+      com.sindicetech.siren.solr.analysis.ExtendedJsonTokenizerFactoryFactory.
 
-      The default behavior of the ConciseTreeField is to generate tokens by prepending
+      The default behavior of the ConciseJsonField is to generate tokens by prepending
       the path of the value to the value's terms. For example, processing the JSON document
       { "country" : "gb" } will generate the token 'country:gb'. This behavior can be
       modified with the parameter 'attributeWildcard'. If set to true, the token of a value
@@ -82,21 +79,12 @@
       ':gb'. This is necessary if your scenario involves searching a keyword across all
       paths, e.g., lookup the keyword 'gb' in any nodes: { "node" : { "query" : "gb" } }.
     -->
-    <fieldType name="json" class="com.sindicetech.siren.solr.schema.ConciseTreeField"
-               omitNorms="true"
+    <fieldType name="concise" class="com.sindicetech.siren.solr.schema.ConciseJsonField" omitNorms="true" stored="false"
                attributeWildcard="true"
-               datatypeConfig="datatypes.xml">
+               datatypeConfig="datatypes.xml"/>
 
-      <analyzer type="index">
-
-        <tokenizer class="com.sindicetech.siren.solr.analysis.ConciseJsonTokenizerFactory"/>
-
-      </analyzer>
-
-    </fieldType>
-
-    <!-- A general text field -->
-    <fieldType name="text" class="solr.TextField">
+    <!-- A general text field that is stored -->
+    <fieldType name="text" class="solr.TextField" stored="true" multiValued="true">
       <analyzer type="index">
         <tokenizer class="solr.StandardTokenizerFactory"/>
         <filter class="solr.LowerCaseFilterFactory"/>

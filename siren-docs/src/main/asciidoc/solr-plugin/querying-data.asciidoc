@@ -10,8 +10,8 @@ a tree query usage:
 $ curl -XPOST http://localhost:8983/solr/collection1/tree?indent=true -d 'q=
 {
     "node" : {
-        "attribute" : "ChargeDeviceName",
-        "query" : "Glasgow"
+        "attribute" : "ChargeDeviceRef",
+        "query" : "CM765"
     }
 }'
 --------------------------------------------------

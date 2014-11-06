@@ -18,6 +18,7 @@
  */
 package com.sindicetech.siren.qparser.keyword.builders;
 
+import com.sindicetech.siren.qparser.keyword.nodes.DatatypeQueryNode;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.queryparser.flexible.core.QueryNodeException;
 import org.apache.lucene.queryparser.flexible.core.nodes.QueryNode;
@@ -52,6 +53,9 @@ public class NodeWildcardQueryNodeBuilder implements KeywordQueryBuilder {
     if (method != null) {
       q.setRewriteMethod(method);
     }
+
+    // assign the datatype. We must always have a datatype assigned.
+    q.setDatatype((String) queryNode.getTag(DatatypeQueryNode.DATATYPE_TAGID));
     return q;
   }
 

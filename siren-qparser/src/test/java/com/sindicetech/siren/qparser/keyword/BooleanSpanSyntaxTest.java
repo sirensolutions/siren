@@ -134,9 +134,9 @@ public class BooleanSpanSyntaxTest extends BaseKeywordQueryParserTest {
   public void testRegexQueries() throws Exception {
     BooleanSpanQuery bsq = new BooleanSpanQuery(0, false);
     bsq.add(tsq("aaa").getQuery(), NodeBooleanClause.Occur.MUST);
-    bsq.add(
-      new MultiTermSpanQuery<NodeRegexpQuery>(new NodeRegexpQuery(new Term(SirenTestCase.DEFAULT_TEST_FIELD, "s*e"))),
-      NodeBooleanClause.Occur.MUST);
+    NodeRegexpQuery regexp = new NodeRegexpQuery(new Term(SirenTestCase.DEFAULT_TEST_FIELD, "s*e"));
+    regexp.setDatatype("http://www.w3.org/2001/XMLSchema#string");
+    bsq.add(new MultiTermSpanQuery<>(regexp), NodeBooleanClause.Occur.MUST);
     this._assertSirenQuery(new LuceneProxyNodeQuery(bsq), "(aaa AND /s*e/)~0");
   }
 
@@ -144,9 +144,9 @@ public class BooleanSpanSyntaxTest extends BaseKeywordQueryParserTest {
   public void testFuzzyQueries() throws Exception {
     BooleanSpanQuery bsq = new BooleanSpanQuery(0, false);
     bsq.add(tsq("aaa").getQuery(), NodeBooleanClause.Occur.MUST);
-    bsq.add(
-      new MultiTermSpanQuery<NodeFuzzyQuery>(new NodeFuzzyQuery(new Term(SirenTestCase.DEFAULT_TEST_FIELD, "bbb"))),
-      NodeBooleanClause.Occur.MUST);
+    NodeFuzzyQuery fuzzy = new NodeFuzzyQuery(new Term(SirenTestCase.DEFAULT_TEST_FIELD, "bbb"));
+    fuzzy.setDatatype("http://www.w3.org/2001/XMLSchema#string");
+    bsq.add(new MultiTermSpanQuery<>(fuzzy), NodeBooleanClause.Occur.MUST);
     this._assertSirenQuery(new LuceneProxyNodeQuery(bsq), "(aaa AND bbb~)~0");
   }
 

@@ -17,9 +17,6 @@
  */
 package com.sindicetech.siren.solr.qparser;
 
-import java.io.IOException;
-import java.util.Properties;
-
 import org.apache.lucene.analysis.util.ResourceLoader;
 import org.apache.lucene.analysis.util.ResourceLoaderAware;
 import org.apache.solr.common.SolrException;
@@ -27,6 +24,9 @@ import org.apache.solr.common.util.NamedList;
 import org.apache.solr.search.QParserPlugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.util.Properties;
 
 /**
  * Abstract class for SIREn's QParser plugin. In charge of creating a SIREn
@@ -42,7 +42,10 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class SirenQParserPlugin extends QParserPlugin implements ResourceLoaderAware {
 
+  private boolean allowLeadingWildcard = false;
+
   private String qnamesFile;
+
   private Properties qnames;
 
   private static final Logger
@@ -52,9 +55,17 @@ public abstract class SirenQParserPlugin extends QParserPlugin implements Resour
     return qnames;
   }
 
+  protected boolean getAllowLeadingWildcard() {
+    return this.allowLeadingWildcard;
+  }
+
   @Override
   public void init(final NamedList args) {
     qnamesFile = (String) args.get(SirenParams.QNAMES);
+
+    if (args.get(SirenParams.ALLOW_LEADING_WILDCARD) != null) {
+      allowLeadingWildcard = args.getBooleanArg(SirenParams.ALLOW_LEADING_WILDCARD);
+    }
   }
 
   public void inform(final ResourceLoader loader) throws IOException {

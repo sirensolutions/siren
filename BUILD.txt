@@ -60,7 +60,7 @@ For information on how to setup the demos, refer to the files
 --------------------------------------------------------------------------------
 
 For further information on SIREn, go to:
-  http://sirendb.com/
+  http://siren.solutions/
 
 Please join the SIREn-User mailing list by visiting this site:
   https://groups.google.com/a/sindicetech.com/forum/embed/?place=forum/siren-user

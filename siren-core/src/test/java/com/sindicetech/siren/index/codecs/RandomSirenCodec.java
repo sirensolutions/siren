@@ -3,6 +3,13 @@
  *
  * This file is part of the SIREn project.
  *
+<<<<<<< HEAD:siren-core/src/test/java/org/sindice/siren/index/codecs/RandomSirenCodec.java
+ * SIREn is not an open-source software. It is owned by Sindice Limited. SIREn
+ * is licensed for evaluation purposes only under the terms and conditions of
+ * the Sindice Limited Development License Agreement. Any form of modification
+ * or reverse-engineering of SIREn is forbidden. SIREn is distributed without
+ * any warranty.
+=======
  * SIREn is a free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of
@@ -15,25 +22,25 @@
  *
  * You should have received a copy of the GNU Affero General Public
  * License along with this program. If not, see <http://www.gnu.org/licenses/>.
+>>>>>>> develop:siren-core/src/test/java/com/sindicetech/siren/index/codecs/RandomSirenCodec.java
  */
 package com.sindicetech.siren.index.codecs;
-
-import org.apache.lucene.codecs.Codec;
-import org.apache.lucene.codecs.PostingsFormat;
-import org.apache.lucene.codecs.lucene46.Lucene46Codec;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.sindicetech.siren.index.codecs.siren10.Siren10AForPostingsFormat;
 import com.sindicetech.siren.index.codecs.siren10.Siren10VIntPostingsFormat;
 import com.sindicetech.siren.util.SirenTestCase;
+import org.apache.lucene.codecs.Codec;
+import org.apache.lucene.codecs.PostingsFormat;
+import org.apache.lucene.codecs.lucene49.Lucene49Codec;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.security.InvalidParameterException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Random;
 
-public class RandomSirenCodec extends Lucene46Codec {
+public class RandomSirenCodec extends Lucene49Codec {
 
   final Random random;
 

@@ -314,15 +314,15 @@ matching between the ancestor node label and child node label.
 The SIREn API is divided into several packages:
 
 <ul>
-<li><b><a href="org/sindice/siren/analysis/package-summary.html">com.sindicetech.siren.analysis</a></b> defines an API
+<li><b><a href="com/sindicetech/siren/analysis/package-summary.html">com.sindicetech.siren.analysis</a></b> defines an API
 for converting JSON data into a
 {@link org.apache.lucene.analysis.TokenStream TokenStream}. The JSON data
 are converted into an abstract tree model and metadata information related
 to the tree structure (i.e., node labels, node datatypes) are attached to
 the tokens.
-<li><b><a href="org/sindice/siren/index/package-summary.html">com.sindicetech.siren.index</a></b> provides an abstraction over the
+<li><b><a href="com/sindicetech/siren/index/package-summary.html">com.sindicetech.siren.index</a></b> provides an abstraction over the
 encoding and decoding of the node-based inverted index structure.
-<li><b><a href="org/sindice/siren/search/node/package-summary.html">com.sindicetech.siren.search.node</a></b> provides a programmatic API
+<li><b><a href="com/sindicetech/siren/search/node/package-summary.html">com.sindicetech.siren.search.node</a></b> provides a programmatic API
 to build queries to search for individual words
 (i.e., {@link com.sindicetech.siren.search.node.NodeTermQuery}), for phrases
 (i.e., {@link com.sindicetech.siren.search.node.NodePhraseQuery}) or for boolean
@@ -331,17 +331,17 @@ combinations of queries
 node of the JSON data tree. It also provides more advanced API to combine
 queries into a tree query
 (i.e., {@link com.sindicetech.siren.search.node.TwigQuery}).
-<li><b><a href="org/sindice/siren/search/spans/package-summary.html">com.sindicetech.siren.search.spans</a></b> provides a programmatic API
+<li><b><a href="com/sindicetech/siren/search/spans/package-summary.html">com.sindicetech.siren.search.spans</a></b> provides a programmatic API
 to build proximity-aware queries to search for words and nodes based on their position.
-<li><b><a href="org/sindice/siren/similarity/package-summary.html">com.sindicetech.siren.similarity</a></b> provides ranking models that
+<li><b><a href="com/sindicetech/siren/similarity/package-summary.html">com.sindicetech.siren.similarity</a></b> provides ranking models that
 can be used in SIREn to order documents by relevance to a query.
-<li><b><a href="org/sindice/siren/util/package-summary.html">com.sindicetech.siren.util</a></b> contains a few handy data
+<li><b><a href="com/sindicetech/siren/util/package-summary.html">com.sindicetech.siren.util</a></b> contains a few handy data
 structures and util classes that are used across the project.
 </ul>
 
 <h2>How to use SIREn</h2>
 
-Please refer to the <b><a href="org/sindice/siren/demo/package-summary.html">demo</a></b>
+Please refer to the <b><a href="com/sindicetech/siren/demo/package-summary.html">demo</a></b>
 module. It includes some simple examples of code:
 <ul>
 <li> {@link com.sindicetech.siren.demo.SimpleIndexer SimpleIndexer}

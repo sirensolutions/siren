@@ -85,7 +85,7 @@ public class SimpleJsonByQueryExtractor implements JsonByQueryExtractor {
 
     if (inputJson.isArray()) {
       ArrayNode rootNode = mapper.createArrayNode();
-      Iterator<JsonNode> elementsIterator = ((ArrayNode) inputJson).getElements();
+      Iterator<JsonNode> elementsIterator = inputJson.getElements();
 
       while (elementsIterator.hasNext()) {
         JsonNode aNode = elementsIterator.next();

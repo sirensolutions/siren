@@ -3,6 +3,13 @@
  *
  * This file is part of the SIREn project.
  *
+<<<<<<< HEAD:siren-core/src/main/java/org/sindice/siren/analysis/NumericTokenizer.java
+ * SIREn is not an open-source software. It is owned by Sindice Limited. SIREn
+ * is licensed for evaluation purposes only under the terms and conditions of
+ * the Sindice Limited Development License Agreement. Any form of modification
+ * or reverse-engineering of SIREn is forbidden. SIREn is distributed without
+ * any warranty.
+=======
  * SIREn is a free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of
@@ -15,18 +22,18 @@
  *
  * You should have received a copy of the GNU Affero General Public
  * License along with this program. If not, see <http://www.gnu.org/licenses/>.
+>>>>>>> develop:siren-core/src/main/java/com/sindicetech/siren/analysis/NumericTokenizer.java
  */
 package com.sindicetech.siren.analysis;
 
+import com.sindicetech.siren.analysis.NumericAnalyzer.NumericParser;
+import com.sindicetech.siren.analysis.attributes.NodeNumericTermAttribute;
 import org.apache.lucene.analysis.NumericTokenStream;
 import org.apache.lucene.analysis.Tokenizer;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.analysis.tokenattributes.PositionIncrementAttribute;
 import org.apache.lucene.analysis.tokenattributes.TypeAttribute;
-
-import com.sindicetech.siren.analysis.NumericAnalyzer.NumericParser;
-import com.sindicetech.siren.analysis.attributes.NodeNumericTermAttribute;
-
+import org.apache.lucene.util.AttributeFactory;
 import java.io.IOException;
 import java.io.Reader;
 
@@ -63,7 +70,7 @@ public class NumericTokenizer extends Tokenizer {
   /**
    * Expert: Creates a token stream for numeric values with the specified
    * <code>precisionStep</code> using the given
-   * {@link org.apache.lucene.util.AttributeSource.AttributeFactory}.
+   * {@link org.apache.lucene.util.AttributeFactory}.
    */
   public NumericTokenizer(final Reader input,
                           final NumericParser<? extends Number> parser,

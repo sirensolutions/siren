@@ -18,6 +18,7 @@
  */
 package com.sindicetech.siren.qparser.keyword.builders;
 
+import com.sindicetech.siren.qparser.keyword.nodes.DatatypeQueryNode;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.queryparser.flexible.core.QueryNodeException;
 import org.apache.lucene.queryparser.flexible.core.nodes.FuzzyQueryNode;
@@ -52,10 +53,12 @@ public class NodeFuzzyQueryNodeBuilder implements KeywordQueryBuilder {
 
     NodeFuzzyQuery fuzzyQuery = new NodeFuzzyQuery(new Term(fuzzyNode.getFieldAsString(), fuzzyNode.getTextAsString()),
       numEdits, fuzzyNode.getPrefixLength());
+    // assign the datatype. We must always have a datatype assigned.
+    fuzzyQuery.setDatatype((String) queryNode.getTag(DatatypeQueryNode.DATATYPE_TAGID));
 
     // if it is tagged as a span query
     if (fuzzyNode.getTag(QueryTypeProcessor.QUERYTYPE_TAG) == QueryTypeProcessor.SPAN_QUERYTYPE) {
-      return new MultiTermSpanQuery<NodeFuzzyQuery>(fuzzyQuery);
+      return new MultiTermSpanQuery<>(fuzzyQuery);
     }
     else {
       return fuzzyQuery;

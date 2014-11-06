@@ -94,15 +94,13 @@ public class TestNestedQuery extends BaseSolrServerTestCase {
   public void testCurlyBracketInNestedQuery() throws IOException, SolrServerException {
     this.addJsonString("1", "{ \"aaa\" : { \"bbb\" : \"ccc\" } }");
     SolrQuery query = new SolrQuery();
-    query.setQuery("aaa : bbb");
     query.setParam("nested", "{!keyword} aaa : { bbb : ccc } ");
     query.setRequestHandler("keyword");
     String[] results = this.search(query, ID_FIELD);
     assertEquals(1, results.length);
 
     query = new SolrQuery();
-    query.setQuery("aaa : bbb");
-    query.setParam("nested", "{!json} { \"node\" : { \"query\" : \"ccc\" } }");
+    query.setParam("nested", "{!tree} { \"node\" : { \"query\" : \"ccc\" } }");
     query.setRequestHandler("keyword");
     results = this.search(query, ID_FIELD);
     assertEquals(1, results.length);

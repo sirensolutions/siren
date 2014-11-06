@@ -18,8 +18,8 @@
 
 package com.sindicetech.siren.solr.qparser.keyword;
 
-import java.util.Map;
-
+import com.sindicetech.siren.qparser.keyword.StandardExtendedKeywordQueryParser;
+import com.sindicetech.siren.solr.qparser.SirenQParser;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.queryparser.flexible.core.QueryNodeException;
 import org.apache.lucene.search.Query;
@@ -27,8 +27,7 @@ import org.apache.solr.common.SolrException;
 import org.apache.solr.common.params.SolrParams;
 import org.apache.solr.request.SolrQueryRequest;
 
-import com.sindicetech.siren.qparser.keyword.StandardExtendedKeywordQueryParser;
-import com.sindicetech.siren.solr.qparser.SirenQParser;
+import java.util.Map;
 
 /**
  * Implementation of {@link SirenQParser} for the {@link com.sindicetech.siren.qparser.keyword.StandardExtendedKeywordQueryParser}.
@@ -52,6 +51,7 @@ public class KeywordQParser extends SirenQParser {
     parser.setDefaultOperator(this.getDefaultOperator());
     parser.setQNames(qnames);
     parser.setDatatypeAnalyzers(datatypeConfig);
+    parser.setAllowLeadingWildcard(this.allowLeadingWildcard);
 
     try {
       return parser.parse(qstr, field);

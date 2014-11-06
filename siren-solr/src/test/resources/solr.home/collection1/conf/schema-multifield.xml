@@ -141,18 +141,10 @@
       The index analyzer will be configured with the datatype analyzers that
       are defined in the datatype analyzer configuration file (datatypes.xml).
     -->
-    <fieldType name="json" class="com.sindicetech.siren.solr.schema.ExtendedTreeField"
+    <fieldType name="json" class="com.sindicetech.siren.solr.schema.ExtendedJsonField"
                omitNorms="true"
-               datatypeConfig="datatypes.xml">
+               datatypeConfig="datatypes.xml"/>
 
-      <analyzer type="index">
-
-        <tokenizer class="com.sindicetech.siren.solr.analysis.ExtendedJsonTokenizerFactory"/>
-
-      </analyzer>
-
-    </fieldType>
-
- </types>
+  </types>
 
 </schema>

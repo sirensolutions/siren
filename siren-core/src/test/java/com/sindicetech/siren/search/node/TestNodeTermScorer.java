@@ -249,15 +249,6 @@ public class TestNodeTermScorer extends AbstractTestSirenScorer {
     assertEquals(DocsAndNodesIterator.NO_MORE_NOD, scorer.node());
   }
 
-  @Test(expected=Exception.class)
-  public void testInvalidScoreCall() throws IOException {
-    this.addDocument("\"Renaud\" . ");
-    final NodeScorer scorer = this.getScorer(ntq("renaud"));
-
-    // Invalid call
-    scorer.scoreInNode();
-  }
-
   @Test
   public void testScore() throws IOException {
     this.addDocument("\"Renaud renaud\" \"renaud\" . ");

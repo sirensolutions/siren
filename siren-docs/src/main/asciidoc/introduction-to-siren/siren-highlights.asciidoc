@@ -1,7 +1,7 @@
 [[siren-highlights]]
 == SIREn Highlights
 
-SIREn is a plugin for Solr and Elasticsearch for searching nested and schema-less data at scale. Based on
+SIREn is a plugin for Solr and Elasticsearch for searching nested and schemaless data at scale. Based on
 state-of-the-art Information Retrieval techniques, SIREn has been designed from the ground up to scale to
 billions of documents and to cope with nested and schemaless data while retaining low latency queries and
 low memory footprint.

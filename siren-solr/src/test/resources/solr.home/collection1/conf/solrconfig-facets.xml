@@ -23,15 +23,15 @@
 
 	<requestHandler name="/update" class="solr.UpdateRequestHandler" />
 
-  <!-- Register SIREn's JSON query parser. -->
-  <queryParser name="json" class="com.sindicetech.siren.solr.qparser.tree.TreeQParserPlugin">
+  <!-- Register SIREn's Tree query parser. -->
+  <queryParser name="tree" class="com.sindicetech.siren.solr.qparser.tree.TreeQParserPlugin">
     <str name="qnames">qnames.txt</str>
   </queryParser>
 
-  <requestHandler name="json" class="solr.SearchHandler">
+  <requestHandler name="tree" class="solr.SearchHandler">
     <!-- default values for query parameters -->
     <lst name="defaults">
-      <str name="defType">json</str>
+      <str name="defType">tree</str>
       <str name="echoParams">explicit</str>
       <str name="df">json</str>
 		 <str name="fl">url</str>
@@ -54,7 +54,7 @@
   </requestHandler>
 
   <codecFactory class="solr.SchemaCodecFactory"/>
-  
+
   <!-- Generate facet fields -->
  <updateRequestProcessorChain name="generate-facets">
     <processor class="com.sindicetech.siren.solr.facet.SirenFacetProcessorFactory">
@@ -70,8 +70,8 @@
          <str name="valueClass">http://www.w3.org/2001/XMLSchema#boolean</str>
          <str name="valueClass">http://www.w3.org/2001/XMLSchema#string</str>
          <str name="fieldType">string</str>
-       </lst>    
+       </lst>
     </processor>
     <processor class="solr.RunUpdateProcessorFactory" />
-  </updateRequestProcessorChain>  
+  </updateRequestProcessorChain>
 </config>

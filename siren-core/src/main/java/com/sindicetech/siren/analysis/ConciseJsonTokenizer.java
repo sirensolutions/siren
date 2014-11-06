@@ -19,7 +19,7 @@
 package com.sindicetech.siren.analysis;
 
 import com.sindicetech.siren.analysis.attributes.PathAttribute;
-
+import org.apache.lucene.util.AttributeFactory;
 import java.io.IOException;
 import java.io.Reader;
 

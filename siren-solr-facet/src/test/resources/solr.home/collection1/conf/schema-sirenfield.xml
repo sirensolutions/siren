@@ -55,7 +55,7 @@
     <!--
       SIREn fields for unit test purpose.
       Set various field properties for which the value is enforced by the
-      ExtendedTreeField implementation
+      ExtendedJsonField implementation
     -->
 
     <field name="siren-multiValued" type="json" multiValued="true"/>
@@ -82,21 +82,12 @@
 
     <!--
       The SIREn field type:
-      An index analyzer has to be defined, but there is no query analyzer.
       The index analyzer will be configured with the datatype analyzers that
       are defined in the datatype analyzer configuration file (datatypes.xml).
     -->
-    <fieldType name="json" class="com.sindicetech.siren.solr.schema.ExtendedTreeField"
+    <fieldType name="json" class="com.sindicetech.siren.solr.schema.ExtendedJsonField"
                omitNorms="true"
-               datatypeConfig="datatypes.xml">
-
-      <analyzer type="index">
-
-        <tokenizer class="com.sindicetech.siren.solr.analysis.ExtendedJsonTokenizerFactory"/>
-
-      </analyzer>
-
-    </fieldType>
+               datatypeConfig="datatypes.xml"/>
 
  </types>
 

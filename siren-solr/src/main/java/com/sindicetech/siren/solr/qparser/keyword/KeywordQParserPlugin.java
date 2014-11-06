@@ -33,6 +33,7 @@ public class KeywordQParserPlugin extends SirenQParserPlugin {
                               final SolrParams params, final SolrQueryRequest req) {
     final KeywordQParser qparser = new KeywordQParser(qstr, localParams, params, req);
     qparser.setQNames(this.getQNames());
+    qparser.setAllowLeadingWildcard(this.getAllowLeadingWildcard());
     return qparser;
   }
 

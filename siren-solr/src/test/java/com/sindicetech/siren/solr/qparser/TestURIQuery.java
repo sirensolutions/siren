@@ -17,13 +17,12 @@
  */
 package com.sindicetech.siren.solr.qparser;
 
-import java.io.IOException;
-
+import com.sindicetech.siren.solr.BaseSolrServerTestCase;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.junit.Test;
 
-import com.sindicetech.siren.solr.BaseSolrServerTestCase;
+import java.io.IOException;
 
 public class TestURIQuery extends BaseSolrServerTestCase {
 
@@ -37,13 +36,13 @@ public class TestURIQuery extends BaseSolrServerTestCase {
     SolrQuery query = new SolrQuery();
     query.setQuery("uri('http://sw.deri.org/~aidanh/')");
     query.setRequestHandler("keyword");
-    assertEquals(1, this.search(query));
+    assertEquals(1, this.search(query).getNumFound());
 
     // test uri trailing slash filter
     query = new SolrQuery();
     query.setQuery("uri('http://sw.deri.org/~aidanh/')");
     query.setRequestHandler("keyword");
-    assertEquals(1, this.search(query));
+    assertEquals(1, this.search(query).getNumFound());
   }
 
   @Test
@@ -57,13 +56,13 @@ public class TestURIQuery extends BaseSolrServerTestCase {
     SolrQuery query = new SolrQuery();
     query.setQuery("uri('http://dblp.l3s.de/d2r/resource/authors/Knud_M%C3%B6ller')");
     query.setRequestHandler("keyword");
-    assertEquals(1, this.search(query));
+    assertEquals(1, this.search(query).getNumFound());
 
     // testing search of decoded local name token
     query = new SolrQuery();
     query.setQuery("Möller");
     query.setRequestHandler("keyword");
-    assertEquals(1, this.search(query));
+    assertEquals(1, this.search(query).getNumFound());
   }
 
 }

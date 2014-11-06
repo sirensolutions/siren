@@ -13,6 +13,10 @@ This module requires the asciidoc tool. You can install it by typing:
 
   $ sudo apt-get install asciidoctor
   
+  OR for OSX 
+  
+  $ sudo port install asciidoc
+  
    
 ## Build the Wordpress output
 

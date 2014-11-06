@@ -18,6 +18,7 @@
  */
 package com.sindicetech.siren.qparser.keyword.builders;
 
+import com.sindicetech.siren.qparser.keyword.nodes.DatatypeQueryNode;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.queryparser.flexible.core.QueryNodeException;
 import org.apache.lucene.queryparser.flexible.core.nodes.QueryNode;
@@ -51,6 +52,8 @@ public class NodePrefixWildcardQueryNodeBuilder implements KeywordQueryBuilder {
 
     final String text = wildcardNode.getText().subSequence(0, wildcardNode.getText().length() - 1).toString();
     final NodePrefixQuery q = new NodePrefixQuery(new Term(wildcardNode.getFieldAsString(), text));
+    // assign the datatype. We must always have a datatype assigned.
+    q.setDatatype((String) queryNode.getTag(DatatypeQueryNode.DATATYPE_TAGID));
 
     final MultiNodeTermQuery.RewriteMethod method =
       (MultiNodeTermQuery.RewriteMethod)queryNode.getTag(MultiNodeTermRewriteMethodProcessor.TAG_ID);
@@ -61,7 +64,7 @@ public class NodePrefixWildcardQueryNodeBuilder implements KeywordQueryBuilder {
 
     // if it is tagged as a span query
     if (wildcardNode.getTag(QueryTypeProcessor.QUERYTYPE_TAG) == QueryTypeProcessor.SPAN_QUERYTYPE) {
-      return new MultiTermSpanQuery<NodePrefixQuery>(q);
+      return new MultiTermSpanQuery<>(q);
     }
     else {
       return q;

@@ -19,7 +19,7 @@ these limitations. In this section we will give a high level overview on how SIR
 
 The field-based indexing model is the traditional model implemented in Lucene. To index nested data using this model,
 it is necessary to first flatten the data prior to indexing. The flattening consists of creating a document field
-for each path of attributes. For example, the json object above will produce the document as shown in
+for each path of attributes. For example, the json object below will produce the document as shown in
 <<flat-document>>.
 
 [source,javascript]
@@ -71,13 +71,13 @@ As we can see in <<blockjoin-document>>, Blockjoin needs to tag each document wi
 path that leads to the nested object. This enables Blockjoin to differentiate between nested objects from different
 paths and to avoid a loss of precision in the matching. This tag will be used at query time to filter out nested objects,
 and it introduces a loss of performance during query processing. Another side-effect is that it forces the user
-to know the exact path to the nested objects he want to query, limiting the ability to query for nested objects without
+to know the exact path to the nested objects he wants to query, limiting the ability to query for nested objects without
 knowing their path.
 
 If you are interested in knowing more about the limitations in performance and scalability of the Blockjoin approach,
 you can read our
-http://www.sirendb.com/blog/comparing-siren-v1-2-and-lucenes-blockjoin-performance-a-uspo-granted-patent-search-scenario/[whitepaper]
-which benchmark Blockjoin and SIREn on a patent search scenario.
+http://siren.solutions/24-times-less-memory-11-times-faster-measuring-the-impact-of-siren-on-elasticsearch-and-solr-systems/[whitepaper]
+which benchmarks Blockjoin and SIREn on a patent search scenario.
 
 [[blockjoin-document]]
 .Blockjoin representation of a JSON object
@@ -103,7 +103,7 @@ is not affected by the number of nested objects in the data. To achieve this, SI
 with very efficient compression and encoding schemes to store and index the tree structure within a single document.
 
 SIREn indexing model enables more advanced search capabilities than Blockjoin. Given that the encoded tree model
-keeps the ordering of the nodes, it becomes possible to design search query that will take into account the
+keeps the ordering of the nodes, it becomes possible to design a search query that will take into account the
 proximity of the nodes, e.g., searching for nested objects that occurs next to each other or at two positions apart.
 It is also possible to search for nested objects without knowing their full path from the root node, i.e., a wildcard
 path search.

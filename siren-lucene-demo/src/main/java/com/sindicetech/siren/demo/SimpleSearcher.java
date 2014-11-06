@@ -75,7 +75,6 @@ public class SimpleSearcher {
     }
     finally {
       mgr.release(searcher);
-      searcher = null;
     }
   }
 
@@ -87,7 +86,6 @@ public class SimpleSearcher {
     }
     finally {
       mgr.release(searcher);
-      searcher = null;
     }
   }
 

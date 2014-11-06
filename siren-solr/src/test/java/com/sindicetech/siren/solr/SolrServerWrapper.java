@@ -18,10 +18,6 @@
 
 package com.sindicetech.siren.solr;
 
-import java.io.IOException;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrRequest;
 import org.apache.solr.client.solrj.SolrServer;
@@ -41,6 +37,10 @@ import org.apache.solr.core.CoreContainer;
 import org.apache.solr.core.SolrCore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Wraps a {@link CoreContainer} and provides utility methods over the
@@ -98,10 +98,10 @@ public class SolrServerWrapper {
     return docIDs;
   }
 
-  public long search(final SolrQuery query)
+  public SolrDocumentList search(final SolrQuery query)
   throws SolrServerException, IOException {
     final QueryResponse response = this.getServer().query(query);
-    return response.getResults().getNumFound();
+    return response.getResults();
   }
 
   public String[] search(final String q, final String retrievedField, final String qt)

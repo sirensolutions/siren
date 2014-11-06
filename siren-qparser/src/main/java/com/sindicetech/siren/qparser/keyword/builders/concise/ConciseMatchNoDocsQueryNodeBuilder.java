@@ -18,23 +18,22 @@
  */
 package com.sindicetech.siren.qparser.keyword.builders.concise;
 
+import com.sindicetech.siren.qparser.keyword.builders.KeywordQueryBuilder;
+import com.sindicetech.siren.qparser.keyword.config.ConciseKeywordQueryConfigHandler;
+import com.sindicetech.siren.qparser.keyword.processors.DatatypeProcessor;
+import com.sindicetech.siren.search.node.NodeBooleanQuery;
+import com.sindicetech.siren.search.node.NodeTermQuery;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.queryparser.flexible.core.QueryNodeException;
 import org.apache.lucene.queryparser.flexible.core.config.QueryConfigHandler;
 import org.apache.lucene.queryparser.flexible.core.nodes.QueryNode;
-import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.Query;
-
-import com.sindicetech.siren.qparser.keyword.builders.KeywordQueryBuilder;
-import com.sindicetech.siren.qparser.keyword.config.ConciseKeywordQueryConfigHandler;
-import com.sindicetech.siren.qparser.keyword.processors.DatatypeProcessor;
-import com.sindicetech.siren.search.node.NodeTermQuery;
 
 /**
  * A {@link org.apache.lucene.queryparser.flexible.core.nodes.MatchNoDocsQueryNode} is generated when the query string
  * is emtpy. In the concise model, an empty query string associated to an attribute indicates an attribute query.
  * Therefore, in the presence of an attribute, this builder creates a {@link com.sindicetech.siren.search.node.NodeTermQuery}
- * with the encoded attribute term. Otherwise, it returns an emtpy {@link org.apache.lucene.search.BooleanQuery}.
+ * with the encoded attribute term. Otherwise, it returns an emtpy {@link NodeBooleanQuery}.
  */
 public class ConciseMatchNoDocsQueryNodeBuilder implements KeywordQueryBuilder {
 
@@ -62,7 +61,7 @@ public class ConciseMatchNoDocsQueryNodeBuilder implements KeywordQueryBuilder {
       return ntq;
     }
     else {
-      return new BooleanQuery();
+      return new NodeBooleanQuery();
     }
   }
 

@@ -18,6 +18,13 @@
  */
 package com.sindicetech.siren.qparser.tree.storage;
 
+import com.sindicetech.siren.analysis.LongNumericAnalyzer;
+import com.sindicetech.siren.qparser.tree.ExtendedTreeQueryParser;
+import com.sindicetech.siren.search.node.NodeBooleanClause.Occur;
+import com.sindicetech.siren.search.node.NodeBooleanQuery;
+import com.sindicetech.siren.search.node.NodePhraseQuery;
+import com.sindicetech.siren.util.JSONDatatype;
+import com.sindicetech.siren.util.XSDDatatype;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.core.WhitespaceAnalyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -25,20 +32,9 @@ import org.apache.lucene.index.Term;
 import org.apache.lucene.queryparser.flexible.core.QueryNodeException;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.util.Version;
-import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.sindicetech.siren.analysis.LongNumericAnalyzer;
-import com.sindicetech.siren.qparser.tree.ExtendedTreeQueryParser;
-import com.sindicetech.siren.qparser.tree.storage.ProjectionException;
-import com.sindicetech.siren.qparser.tree.storage.SimpleJsonByQueryExtractor;
-import com.sindicetech.siren.search.node.NodeBooleanQuery;
-import com.sindicetech.siren.search.node.NodePhraseQuery;
-import com.sindicetech.siren.search.node.NodeBooleanClause.Occur;
-import com.sindicetech.siren.util.JSONDatatype;
-import com.sindicetech.siren.util.XSDDatatype;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -235,7 +231,7 @@ public class SimpleJsonByQueryExtractorTest {
   }
 
   @Test
-  public void testTwoPrimitiveVariables() throws QueryNodeException, ProjectionException, JsonProcessingException, IOException{
+  public void testTwoPrimitiveVariables() throws QueryNodeException, ProjectionException, IOException{
         String twig0 =     "\"twig\": {"
             + "\"root\":\"title\""
             + ",\"child\":["
@@ -262,7 +258,7 @@ public class SimpleJsonByQueryExtractorTest {
   }
 
   @Test
-  public void testTwoVariablesPrimitiveAndObject() throws QueryNodeException, ProjectionException, JsonProcessingException, IOException{
+  public void testTwoVariablesPrimitiveAndObject() throws QueryNodeException, ProjectionException, IOException{
    String twig0 =     "\"twig\": {"
             + "\"root\":\"title\""
             + ",\"child\":["
@@ -305,7 +301,7 @@ public class SimpleJsonByQueryExtractorTest {
   }
 
   @Test
-  public void testTwoVariablesPrimitiveAndObjectInArray() throws QueryNodeException, ProjectionException, JsonProcessingException, IOException{
+  public void testTwoVariablesPrimitiveAndObjectInArray() throws QueryNodeException, ProjectionException, IOException{
    String twig0 =
        "\"twig\" : { "
        + "\"root\" : \"director\","
@@ -361,7 +357,7 @@ public class SimpleJsonByQueryExtractorTest {
   }
 
   @Test
-  public void testExtractTwigObjectVariableInArray() throws QueryNodeException, ProjectionException, JsonProcessingException, IOException {
+  public void testExtractTwigObjectVariableInArray() throws QueryNodeException, ProjectionException, IOException {
     String query = "{"
         + "\"twig\" : { "
           + "\"root\" : \"actors\","
@@ -392,7 +388,7 @@ public class SimpleJsonByQueryExtractorTest {
   }
 
   @Test
-  public void testExtractTwigMultipleInArrayObjectVariable() throws QueryNodeException, ProjectionException, JsonProcessingException, IOException {
+  public void testExtractTwigMultipleInArrayObjectVariable() throws QueryNodeException, ProjectionException, IOException {
     String query = "{"
         + "\"twig\" : { "
           + "\"root\" : \"actors\","
@@ -425,7 +421,7 @@ public class SimpleJsonByQueryExtractorTest {
   }
 
   @Test
-  public void testSimpleNumericRangeNoVars() throws QueryNodeException, ProjectionException, JsonProcessingException, IOException {
+  public void testSimpleNumericRangeNoVars() throws QueryNodeException, ProjectionException, IOException {
     String query = "{ \"twig\": "
         + "{ \"root\":\"year\","
         + "  \"child\": [{\"occur\":\"MUST\","
@@ -437,7 +433,7 @@ public class SimpleJsonByQueryExtractorTest {
   }
 
   @Test
-  public void testSelectByNumericRangeFromArray() throws QueryNodeException, ProjectionException, JsonProcessingException, IOException {
+  public void testSelectByNumericRangeFromArray() throws QueryNodeException, ProjectionException, IOException {
     String query = "{"
         + "\"twig\" : { "
           + "\"root\" : \"actors\","
@@ -479,7 +475,7 @@ public class SimpleJsonByQueryExtractorTest {
         + "}]"), mapper.readTree(extractor.extractAsString(json, q)));
   }
   @Test
-  public void testSelectByNumericRangeFromArrayPrimitive() throws QueryNodeException, ProjectionException, JsonProcessingException, IOException {
+  public void testSelectByNumericRangeFromArrayPrimitive() throws QueryNodeException, ProjectionException, IOException {
     String query = "{"
         + "\"twig\" : { "
           + "\"root\" : \"actors\","
@@ -520,7 +516,7 @@ public class SimpleJsonByQueryExtractorTest {
   }
 
   @Test
-  public void testExtractTwigObjectVariableInArrayTwoQueries() throws QueryNodeException, ProjectionException, JsonProcessingException, IOException {
+  public void testExtractTwigObjectVariableInArrayTwoQueries() throws QueryNodeException, ProjectionException, IOException {
     String query = "{"
         + "\"twig\" : { "
           + "\"root\" : \"actors\","

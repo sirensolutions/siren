@@ -29,7 +29,7 @@ if EXIST "%EXECUTABLE%" goto okExe
 echo elasticsearch-service-(x86|x64).exe was not found...
 
 :okExe
-set ES_VERSION=1.2.2
+set ES_VERSION=1.3.2
 
 if "%LOG_DIR%" == "" set LOG_DIR=%ES_HOME%\logs
 
@@ -42,6 +42,8 @@ set SERVICE_ID=%1
 :checkServiceCmd
 
 if "%LOG_OPTS%" == "" set LOG_OPTS=--LogPath "%LOG_DIR%" --LogPrefix "%SERVICE_ID%" --StdError auto --StdOutput auto
+
+TITLE Elasticsearch Service 1.3.2
 
 if /i %SERVICE_CMD% == install goto doInstall
 if /i %SERVICE_CMD% == remove goto doRemove
@@ -159,6 +161,9 @@ set JAVA_OPTS=%JAVA_OPTS% -XX:+HeapDumpOnOutOfMemoryError
 REM The path to the heap dump location, note directory must exists and have enough
 REM space for a full heap dump.
 REM JAVA_OPTS=%JAVA_OPTS% -XX:HeapDumpPath=$ES_HOME/logs/heapdump.hprof
+
+REM Disables explicit GC
+set JAVA_OPTS=%JAVA_OPTS% -XX:+DisableExplicitGC
 
 if "%DATA_DIR%" == "" set DATA_DIR=%ES_HOME%\data
 

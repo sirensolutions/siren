@@ -18,10 +18,9 @@
 
 package com.sindicetech.siren.solr.analysis;
 
-import org.apache.lucene.analysis.util.TokenizerFactory;
-import org.apache.lucene.util.AttributeSource;
-
 import com.sindicetech.siren.analysis.ConciseJsonTokenizer;
+import org.apache.lucene.analysis.util.TokenizerFactory;
+import org.apache.lucene.util.AttributeFactory;
 
 import java.io.Reader;
 import java.util.Map;
@@ -39,7 +38,7 @@ public class ConciseJsonTokenizerFactory extends TokenizerFactory {
   }
 
 	@Override
-	public ConciseJsonTokenizer create(final AttributeSource.AttributeFactory factory, final Reader input) {
+	public ConciseJsonTokenizer create(final AttributeFactory factory, final Reader input) {
 		return new ConciseJsonTokenizer(factory, input);
 	}
 

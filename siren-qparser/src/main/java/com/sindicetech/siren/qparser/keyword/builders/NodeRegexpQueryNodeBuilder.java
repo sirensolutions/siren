@@ -18,6 +18,7 @@
  */
 package com.sindicetech.siren.qparser.keyword.builders;
 
+import com.sindicetech.siren.qparser.keyword.nodes.DatatypeQueryNode;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.queryparser.flexible.core.QueryNodeException;
 import org.apache.lucene.queryparser.flexible.core.nodes.QueryNode;
@@ -51,6 +52,8 @@ public class NodeRegexpQueryNodeBuilder implements StandardQueryBuilder {
     final RegexpQueryNode regexpNode = (RegexpQueryNode) queryNode;
 
     final NodeRegexpQuery q = new NodeRegexpQuery(new Term(regexpNode.getFieldAsString(), regexpNode.textToBytesRef()));
+    // assign the datatype. We must always have a datatype assigned.
+    q.setDatatype((String) queryNode.getTag(DatatypeQueryNode.DATATYPE_TAGID));
 
     final MultiNodeTermQuery.RewriteMethod method =
       (MultiNodeTermQuery.RewriteMethod) queryNode.getTag(MultiNodeTermRewriteMethodProcessor.TAG_ID);
@@ -61,7 +64,7 @@ public class NodeRegexpQueryNodeBuilder implements StandardQueryBuilder {
 
     // if it is tagged as a span query
     if (regexpNode.getTag(QueryTypeProcessor.QUERYTYPE_TAG) == QueryTypeProcessor.SPAN_QUERYTYPE) {
-      return new MultiTermSpanQuery<NodeRegexpQuery>(q);
+      return new MultiTermSpanQuery<>(q);
     }
     else {
       return q;

@@ -21,18 +21,21 @@ package com.sindicetech.siren.qparser.keyword.processors;
 
 import org.apache.lucene.queryparser.flexible.core.QueryNodeException;
 import org.apache.lucene.queryparser.flexible.core.nodes.QueryNode;
+import org.apache.lucene.queryparser.flexible.core.nodes.TextableQueryNode;
 import org.apache.lucene.queryparser.flexible.core.processors.QueryNodeProcessorImpl;
 
 import com.sindicetech.siren.qparser.keyword.config.ExtendedKeywordQueryConfigHandler.KeywordConfigurationKeys;
 import com.sindicetech.siren.qparser.keyword.nodes.DatatypeQueryNode;
 import com.sindicetech.siren.qparser.keyword.nodes.ProtectedQueryNode;
+import org.apache.lucene.queryparser.flexible.standard.nodes.RegexpQueryNode;
 
 import java.util.List;
 import java.util.Properties;
 
 /**
- * This processor replaces QNames occurring in a {@link ProtectedQueryNode} or a {@link DatatypeQueryNode} by their
- * namespace.
+ * This processor replaces QNames occurring in a {@link ProtectedQueryNode}, a {@link DatatypeQueryNode} and
+ * a {@link RegexpQueryNode} by their namespace. QNames are allowed in {@link RegexpQueryNode} as there is no
+ * problem of ambiguity (a regexp's term is enclosed by '/').
  *
  * <p>
  *
@@ -48,7 +51,7 @@ extends QueryNodeProcessorImpl {
   @Override
   protected QueryNode preProcessNode(final QueryNode node)
   throws QueryNodeException {
-    if (node instanceof ProtectedQueryNode || node instanceof DatatypeQueryNode) {
+    if (node instanceof ProtectedQueryNode || node instanceof DatatypeQueryNode || node instanceof RegexpQueryNode) {
       if (qnames == null) {
         qnames = this.getQueryConfigHandler().get(KeywordConfigurationKeys.QNAMES);
       }
@@ -58,18 +61,17 @@ extends QueryNodeProcessorImpl {
 
       // Replace the qname
       final CharSequence text;
-      if (node instanceof ProtectedQueryNode) {
-        text = ((ProtectedQueryNode) node).getText();
+      if (node instanceof TextableQueryNode) {
+        text = ((TextableQueryNode) node).getText();
       }
       else {
         text = ((DatatypeQueryNode) node).getDatatype();
       }
 
       if (replace(text)) {
-        if (node instanceof ProtectedQueryNode) {
-          final ProtectedQueryNode pqn = (ProtectedQueryNode) node;
+        if (node instanceof TextableQueryNode) {
+          final TextableQueryNode pqn = (TextableQueryNode) node;
           pqn.setText(sb.toString());
-          pqn.setEnd(pqn.getText().length());
         }
         else {
           ((DatatypeQueryNode) node).setDatatype(sb.toString());

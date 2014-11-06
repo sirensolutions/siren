@@ -21,6 +21,7 @@ import org.elasticsearch.common.settings.ImmutableSettings;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
+import org.elasticsearch.plugins.PluginsService;
 import org.elasticsearch.test.ElasticsearchIntegrationTest;
 
 import java.io.IOException;
@@ -34,6 +35,7 @@ public abstract class SirenTestCase extends ElasticsearchIntegrationTest {
   protected Settings nodeSettings(int nodeOrdinal) {
     return ImmutableSettings.settingsBuilder()
       .put("path.data", "./target/elasticsearch-test/data/")
+      .put("plugins." + PluginsService.LOAD_PLUGIN_FROM_CLASSPATH, true)
       .put(super.nodeSettings(nodeOrdinal)).build();
   }
 

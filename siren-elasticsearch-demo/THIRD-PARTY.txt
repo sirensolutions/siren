@@ -1,4 +1,4 @@
-1. SindiceTech SIREn, http://sirendb.com
+1. SindiceTech SIREn, http://siren.solutions
 
 SIREn is a Lucene extension for efficient semi-structured full-text search. It is licensed under the
 GNU Affero General Public License, Version 3.0.

@@ -14,7 +14,7 @@ either a <<node-tree-search-syntax, node query>>, a <<twig-tree-search-syntax, t
 
 The unary boolean operator is specified with the parameter `occur`. The
 value of this parameter must be a string with one of the
-following value: `MUST`, `SHOULD`, `MUST_NOT`. This parameter is optional, and the default unary operator `MUST` will be
+following values: `MUST`, `SHOULD`, `MUST_NOT`. This parameter is optional, and the default unary operator `MUST` will be
 used if it is not specified.
 
 For example, the following query performs an intersection between a node query and a twig query.

@@ -22,6 +22,12 @@ names is not possible. Therefore, the value of the root parameter is considered 
 full-text search query.
 
 [float]
+==== Level and Range
+
+As for the <<node-tree-search-syntax, node query>>, it is possible to constrain the position of the root node in the
+tree using the parameters `level` and `range`. By default, a level of 1 is assigned to a top-level twig query.
+
+[float]
 ==== Descendant
 
 A list of descendant queries is specified with the parameter `descendant`. This parameter accepts an array of boolean
@@ -31,7 +37,7 @@ either a <<node-tree-search-syntax, node query>>, a <<twig-tree-search-syntax, t
 
 The unary boolean operator is specified with the parameter `occur`. The
 value of this parameter must be a string with one of the
-following value: `MUST`, `SHOULD`, `MUST_NOT`. This parameter is optional, and the default unary operator `MUST` will be
+following values: `MUST`, `SHOULD`, `MUST_NOT`. This parameter is optional, and the default unary operator `MUST` will be
 used if it is not specified.
 
 The level is specified with the parameter `level`. The level parameter is mandatory for descendant clauses and defines
@@ -116,9 +122,3 @@ matches the document
     ]
 }
 ----
-
-[float]
-==== Level and Range
-
-As for the <<node-tree-search-syntax, node query>>, it is possible to constrain the position of the root node in the
-tree using the parameters `level` and `range`. By default, a level of 1 is assigned to a top-level twig query.

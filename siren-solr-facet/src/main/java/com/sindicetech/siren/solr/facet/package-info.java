@@ -73,7 +73,7 @@ lt;!-- Fields with strings longer than 80 chars will be skipped when generating 
     ]
   }
 }</pre>
- * <p> For this document stored in a ExtendedTreeField called json, the following facet fields will be generated: <br><br>
+ * <p> For this document stored in a ExtendedJsonField called json, the following facet fields will be generated: <br><br>
  *
  * string.json.name<br>
  * long.json.age<br>
@@ -97,6 +97,7 @@ lt;!-- Fields with strings longer than 80 chars will be skipped when generating 
  * <p>To summarize, the nested facet field name is composed as follows: [datatype].[sirenFieldName].[path]<br>
  *
  * <h3>Register {@link com.sindicetech.siren.solr.facet.FacetsPathsRequestHandler}</h3>
+ *
  * (<code>solrconfig.xml</code>)
  *
  <pre style="overflow:auto;">{@code

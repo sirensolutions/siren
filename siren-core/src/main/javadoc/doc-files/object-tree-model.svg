@@ -15,7 +15,7 @@
    version="1.1"
    inkscape:version="0.48.3.1 r9886"
    sodipodi:docname="object-tree-model.svg"
-   inkscape:export-filename="/home/renaud/Work/Sindice/workspace/siren/siren.git/siren-core/src/main/javadoc/org/sindice/siren/doc-files/object-tree-label.png"
+   inkscape:export-filename="/home/renaud/Work/Sindice/workspace/siren/siren.git/siren-core/src/main/javadoc/com/sindicetech/siren/doc-files/object-tree-label.png"
    inkscape:export-xdpi="203.50481"
    inkscape:export-ydpi="203.50481">
   <defs
@@ -98,7 +98,7 @@
        sodipodi:ry="20"
        d="m 310,102.36218 a 20,20 0 1 1 -40,0 20,20 0 1 1 40,0 z"
        transform="matrix(0.75,0,0,0.75,57.5,20.590546)"
-       inkscape:export-filename="/home/renaud/Work/Sindice/workspace/siren/siren.git/siren-core/src/main/javadoc/org/sindice/siren/doc-files/object-tree-model.png"
+       inkscape:export-filename="/home/renaud/Work/Sindice/workspace/siren/siren.git/siren-core/src/main/javadoc/com/sindicetech/siren/doc-files/object-tree-model.png"
        inkscape:export-xdpi="203.50481"
        inkscape:export-ydpi="203.50481" />
     <text
@@ -108,7 +108,7 @@
        y="100.11414"
        id="text3028"
        sodipodi:linespacing="125%"
-       inkscape:export-filename="/home/renaud/Work/Sindice/workspace/siren/siren.git/siren-core/src/main/javadoc/org/sindice/siren/doc-files/object-tree-model.png"
+       inkscape:export-filename="/home/renaud/Work/Sindice/workspace/siren/siren.git/siren-core/src/main/javadoc/com/sindicetech/siren/doc-files/object-tree-model.png"
        inkscape:export-xdpi="203.50481"
        inkscape:export-ydpi="203.50481"><tspan
          sodipodi:role="line"
@@ -125,7 +125,7 @@
        sodipodi:ry="20"
        d="m 310,102.36218 a 20,20 0 1 1 -40,0 20,20 0 1 1 40,0 z"
        transform="matrix(0.75,0,0,0.75,35,60.590546)"
-       inkscape:export-filename="/home/renaud/Work/Sindice/workspace/siren/siren.git/siren-core/src/main/javadoc/org/sindice/siren/doc-files/object-tree-model.png"
+       inkscape:export-filename="/home/renaud/Work/Sindice/workspace/siren/siren.git/siren-core/src/main/javadoc/com/sindicetech/siren/doc-files/object-tree-model.png"
        inkscape:export-xdpi="203.50481"
        inkscape:export-ydpi="203.50481" />
     <path
@@ -138,7 +138,7 @@
        sodipodi:ry="20"
        d="m 310,102.36218 a 20,20 0 1 1 -40,0 20,20 0 1 1 40,0 z"
        transform="matrix(0.75,0,0,0.75,80,60.590546)"
-       inkscape:export-filename="/home/renaud/Work/Sindice/workspace/siren/siren.git/siren-core/src/main/javadoc/org/sindice/siren/doc-files/object-tree-model.png"
+       inkscape:export-filename="/home/renaud/Work/Sindice/workspace/siren/siren.git/siren-core/src/main/javadoc/com/sindicetech/siren/doc-files/object-tree-model.png"
        inkscape:export-xdpi="203.50481"
        inkscape:export-ydpi="203.50481" />
     <path
@@ -147,7 +147,7 @@
        id="path3057"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc"
-       inkscape:export-filename="/home/renaud/Work/Sindice/workspace/siren/siren.git/siren-core/src/main/javadoc/org/sindice/siren/doc-files/object-tree-model.png"
+       inkscape:export-filename="/home/renaud/Work/Sindice/workspace/siren/siren.git/siren-core/src/main/javadoc/com/sindicetech/siren/doc-files/object-tree-model.png"
        inkscape:export-xdpi="203.50481"
        inkscape:export-ydpi="203.50481" />
     <path
@@ -156,7 +156,7 @@
        id="path3057-8"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc"
-       inkscape:export-filename="/home/renaud/Work/Sindice/workspace/siren/siren.git/siren-core/src/main/javadoc/org/sindice/siren/doc-files/object-tree-model.png"
+       inkscape:export-filename="/home/renaud/Work/Sindice/workspace/siren/siren.git/siren-core/src/main/javadoc/com/sindicetech/siren/doc-files/object-tree-model.png"
        inkscape:export-xdpi="203.50481"
        inkscape:export-ydpi="203.50481" />
     <text
@@ -166,7 +166,7 @@
        y="139.54578"
        id="text4295"
        sodipodi:linespacing="125%"
-       inkscape:export-filename="/home/renaud/Work/Sindice/workspace/siren/siren.git/siren-core/src/main/javadoc/org/sindice/siren/doc-files/object-tree-model.png"
+       inkscape:export-filename="/home/renaud/Work/Sindice/workspace/siren/siren.git/siren-core/src/main/javadoc/com/sindicetech/siren/doc-files/object-tree-model.png"
        inkscape:export-xdpi="203.50481"
        inkscape:export-ydpi="203.50481"><tspan
          sodipodi:role="line"
@@ -180,7 +180,7 @@
        y="140.3446"
        id="text4299"
        sodipodi:linespacing="125%"
-       inkscape:export-filename="/home/renaud/Work/Sindice/workspace/siren/siren.git/siren-core/src/main/javadoc/org/sindice/siren/doc-files/object-tree-model.png"
+       inkscape:export-filename="/home/renaud/Work/Sindice/workspace/siren/siren.git/siren-core/src/main/javadoc/com/sindicetech/siren/doc-files/object-tree-model.png"
        inkscape:export-xdpi="203.50481"
        inkscape:export-ydpi="203.50481"><tspan
          sodipodi:role="line"
@@ -197,7 +197,7 @@
        sodipodi:ry="20"
        d="m 310,102.36218 a 20,20 0 1 1 -40,0 20,20 0 1 1 40,0 z"
        transform="matrix(0.75,0,0,0.75,34.892855,100.59055)"
-       inkscape:export-filename="/home/renaud/Work/Sindice/workspace/siren/siren.git/siren-core/src/main/javadoc/org/sindice/siren/doc-files/object-tree-model.png"
+       inkscape:export-filename="/home/renaud/Work/Sindice/workspace/siren/siren.git/siren-core/src/main/javadoc/com/sindicetech/siren/doc-files/object-tree-model.png"
        inkscape:export-xdpi="203.50481"
        inkscape:export-ydpi="203.50481" />
     <path
@@ -210,7 +210,7 @@
        sodipodi:ry="20"
        d="m 310,102.36218 a 20,20 0 1 1 -40,0 20,20 0 1 1 40,0 z"
        transform="matrix(0.75,0,0,0.75,79.892855,100.59055)"
-       inkscape:export-filename="/home/renaud/Work/Sindice/workspace/siren/siren.git/siren-core/src/main/javadoc/org/sindice/siren/doc-files/object-tree-model.png"
+       inkscape:export-filename="/home/renaud/Work/Sindice/workspace/siren/siren.git/siren-core/src/main/javadoc/com/sindicetech/siren/doc-files/object-tree-model.png"
        inkscape:export-xdpi="203.50481"
        inkscape:export-ydpi="203.50481" />
     <text
@@ -220,7 +220,7 @@
        y="179.56921"
        id="text4295-3"
        sodipodi:linespacing="125%"
-       inkscape:export-filename="/home/renaud/Work/Sindice/workspace/siren/siren.git/siren-core/src/main/javadoc/org/sindice/siren/doc-files/object-tree-model.png"
+       inkscape:export-filename="/home/renaud/Work/Sindice/workspace/siren/siren.git/siren-core/src/main/javadoc/com/sindicetech/siren/doc-files/object-tree-model.png"
        inkscape:export-xdpi="203.50481"
        inkscape:export-ydpi="203.50481"><tspan
          sodipodi:role="line"
@@ -234,7 +234,7 @@
        y="180.27429"
        id="text4299-8"
        sodipodi:linespacing="125%"
-       inkscape:export-filename="/home/renaud/Work/Sindice/workspace/siren/siren.git/siren-core/src/main/javadoc/org/sindice/siren/doc-files/object-tree-model.png"
+       inkscape:export-filename="/home/renaud/Work/Sindice/workspace/siren/siren.git/siren-core/src/main/javadoc/com/sindicetech/siren/doc-files/object-tree-model.png"
        inkscape:export-xdpi="203.50481"
        inkscape:export-ydpi="203.50481"><tspan
          sodipodi:role="line"
@@ -246,7 +246,7 @@
        d="m 252.5,152.36218 0,10"
        id="path4336"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/home/renaud/Work/Sindice/workspace/siren/siren.git/siren-core/src/main/javadoc/org/sindice/siren/doc-files/object-tree-model.png"
+       inkscape:export-filename="/home/renaud/Work/Sindice/workspace/siren/siren.git/siren-core/src/main/javadoc/com/sindicetech/siren/doc-files/object-tree-model.png"
        inkscape:export-xdpi="203.50481"
        inkscape:export-ydpi="203.50481" />
     <path
@@ -254,7 +254,7 @@
        d="m 297.5,152.36218 0,10"
        id="path4338"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/home/renaud/Work/Sindice/workspace/siren/siren.git/siren-core/src/main/javadoc/org/sindice/siren/doc-files/object-tree-model.png"
+       inkscape:export-filename="/home/renaud/Work/Sindice/workspace/siren/siren.git/siren-core/src/main/javadoc/com/sindicetech/siren/doc-files/object-tree-model.png"
        inkscape:export-xdpi="203.50481"
        inkscape:export-ydpi="203.50481" />
   </g>

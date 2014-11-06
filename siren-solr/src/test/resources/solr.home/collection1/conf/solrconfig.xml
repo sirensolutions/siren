@@ -21,17 +21,21 @@
 
   <directoryFactory name="DirectoryFactory" class="${solr.directoryFactory:solr.RAMDirectoryFactory}"/>
 
-	<requestHandler name="/update" class="solr.UpdateRequestHandler" />
+  <requestHandler name="/update" class="solr.UpdateRequestHandler" />
 
-  <!-- Register SIREn's JSON query parser. -->
-  <queryParser name="json" class="com.sindicetech.siren.solr.qparser.tree.TreeQParserPlugin">
+  <requestHandler name="/admin/luke" class="org.apache.solr.handler.admin.LukeRequestHandler" />
+  <requestHandler name="/analysis/field" class="solr.FieldAnalysisRequestHandler" />
+
+  <!-- Register SIREn's Tree query parser. -->
+  <queryParser name="tree" class="com.sindicetech.siren.solr.qparser.tree.TreeQParserPlugin">
     <str name="qnames">qnames.txt</str>
+    <str name="allowLeadingWildcard">true</str>
   </queryParser>
 
-  <requestHandler name="json" class="solr.SearchHandler">
+  <requestHandler name="tree" class="solr.SearchHandler">
     <!-- default values for query parameters -->
     <lst name="defaults">
-      <str name="defType">json</str>
+      <str name="defType">tree</str>
       <str name="echoParams">explicit</str>
       <str name="df">json</str>
 		 <str name="fl">url</str>

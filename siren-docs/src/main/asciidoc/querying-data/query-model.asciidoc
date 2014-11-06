@@ -14,8 +14,8 @@ operators over the structure of the tree. The search syntax for the content oper
 <<tree-search-syntax>>.
 
 You can learn more about the implementation of the query model and internals of the query API in the
-http://sirendb.com/javadoc/current/org/sindice/siren/search/node/package-summary.html[node query] and
-http://sirendb.com/javadoc/current/org/sindice/siren/search/spans/package-summary.html[spans query] package descriptions.
+http://siren.solutions/javadoc/current/com/sindicetech/siren/search/node/package-summary.html[node query] and
+http://siren.solutions/javadoc/current/com/sindicetech/siren/search/spans/package-summary.html[spans query] package descriptions.
 
 [float]
 === Content Operators

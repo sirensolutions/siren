@@ -29,4 +29,7 @@ public class SirenParams {
   /** Init param for qname mapping file */
   public static String QNAMES = "qnames";
 
+  /** Param for allowing leading wildcard */
+  public static String ALLOW_LEADING_WILDCARD = "allowLeadingWildcard";
+
 }

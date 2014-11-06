@@ -18,15 +18,16 @@
 
 package com.sindicetech.siren.solr;
 
-import java.io.FileReader;
-import java.io.IOException;
-
 import org.apache.commons.io.IOUtils;
 import org.apache.solr.SolrTestCaseJ4;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.SolrInputDocument;
 import org.junit.After;
+
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  * Abstract class which instantiates a Solr server and provides helper methods
@@ -109,7 +110,7 @@ public abstract class SolrServerTestCase extends SolrTestCaseJ4 {
     return getWrapper().search(query, retrievedField);
   }
 
-  protected long search(final SolrQuery query)
+  protected SolrDocumentList search(final SolrQuery query)
   throws SolrServerException, IOException {
     return getWrapper().search(query);
   }

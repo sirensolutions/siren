@@ -17,19 +17,18 @@
  */
 package com.sindicetech.siren.solr.response;
 
-import java.io.IOException;
-
+import com.sindicetech.siren.solr.SolrServerTestCase;
+import com.sindicetech.siren.solr.qparser.SirenParams;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.common.SolrInputDocument;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.sindicetech.siren.solr.SolrServerTestCase;
-import com.sindicetech.siren.solr.qparser.SirenParams;
+import java.io.IOException;
 
 public class TestSirenTransformer extends SolrServerTestCase {
-  private static final String json =     
+  private static final String json =
       "{"
         + "\"title\": \"Unforgiven\","
         + "\"year\": \"1992\","
@@ -99,10 +98,10 @@ public class TestSirenTransformer extends SolrServerTestCase {
                       + "]"
                   + "}"
         + "}";
-    
+
     final SolrQuery query = new SolrQuery();
     query.setQuery(queryStr);
-    query.setRequestHandler("json");
+    query.setRequestHandler("tree");
     query.set(SirenParams.QF, JSON_FIELD);
     query.set("fl", "id,json,[sirenProjection]");
     final String[] results = getWrapper().search(query, JSON_FIELD);

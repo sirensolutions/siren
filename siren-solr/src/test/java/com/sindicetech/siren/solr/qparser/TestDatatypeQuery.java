@@ -41,7 +41,7 @@ public class TestDatatypeQuery extends BaseSolrServerTestCase {
     // by default, the json tokenizer index numeric value as long
     query.setQuery("numeric : xsd:long([501 TO *])");
     query.setRequestHandler("keyword");
-    assertEquals(499, this.search(query));
+    assertEquals(499, this.search(query).getNumFound());
   }
 
   @Test
@@ -59,7 +59,7 @@ public class TestDatatypeQuery extends BaseSolrServerTestCase {
     // by default, the json tokenizer index numeric value as long
     query.setQuery("date : xsd:date([1995-12-31T00:00:00Z TO 1995-12-31T00:00:00Z+5YEARS])");
     query.setRequestHandler("keyword");
-    assertEquals(5, this.search(query));
+    assertEquals(5, this.search(query).getNumFound());
   }
 
   @Test
@@ -73,7 +73,7 @@ public class TestDatatypeQuery extends BaseSolrServerTestCase {
     final SolrQuery query = new SolrQuery();
     final QueryBuilder b = new QueryBuilder();
     query.setQuery(b.newTwig("uri").with(b.newNode("uri('http://xmlns.com/foaf/0.1/Person')")).toString());
-    query.setRequestHandler("json");
+    query.setRequestHandler("tree");
     final String[] results = this.search(query, ID_FIELD);
     assertEquals(1, results.length);
   }
@@ -98,7 +98,7 @@ public class TestDatatypeQuery extends BaseSolrServerTestCase {
     final SolrQuery query = new SolrQuery();
     final QueryBuilder b = new QueryBuilder();
     query.setQuery(b.newNode("xsd:double([-1.0 TO 1.0])").toString());
-    query.setRequestHandler("json");
+    query.setRequestHandler("tree");
     final String[] results = this.search(query, ID_FIELD);
     assertEquals(1, results.length);
   }
