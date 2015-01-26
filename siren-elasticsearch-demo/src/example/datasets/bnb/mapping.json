@@ -1,0 +1,12 @@
+{ "publication" : { "properties" :
+	 { 
+         "_siren_source" : { 
+                  "analyzer" : "extended",
+                  "postings_format" : "Siren10AFor",
+                  "store" : "no",
+                  "type" : "string"
+         } 
+            },
+         "_siren" : { } 
+	 }
+} 

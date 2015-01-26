@@ -1,0 +1,33 @@
+{
+  "twig" : {
+    "root" : "director",
+    "child" : [ {
+      "occur" : "MUST",
+      "twig" : {
+        "child" : [ {
+          "occur" : "MUST",
+          "twig" : {
+            "root" : "last_name",
+            "child" : [ {
+              "occur" : "MUST",
+              "node" : {
+                "query" : "Eastwood"
+              }
+            } ]
+          }
+        }, {
+          "occur" : "MUST",
+          "twig" : {
+            "root" : "first_name",
+            "child" : [ {
+              "occur" : "MUST",
+              "node" : {
+                "query" : "Clint"
+              }
+            } ]
+          }
+        } ]
+      }
+    } ]
+  }
+}

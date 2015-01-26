@@ -1,0 +1,11 @@
+{
+  "twig" : {
+    "root" : "publisher",
+    "child" : [ {
+      "occur" : "MUST",
+      "node" : {
+        "query" : "Cambridge Scholars"
+      }
+    } ]
+  }
+}

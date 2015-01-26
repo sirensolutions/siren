@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.sindicetech.siren</groupId>
+    <artifactId>siren-parent</artifactId>
+    <version>1.5-SNAPSHOT</version>
+    <relativePath>../siren-parent</relativePath>
+  </parent>
+
+  <artifactId>siren-solr-demo</artifactId>
+  <name>siren-solr-demo</name>
+  <description>SIREn Solr plugin demo</description>
+  <url>http://siren.solutions</url>
+
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
+
+  <build>
+    <plugins>
+      <!-- Register the prefabricated descriptor jar-with-dependencies -->
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.4</version>
+        <configuration>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+          <finalName>${project.name}</finalName>
+          <descriptors>
+            <descriptor>src/main/assembly/example.xml</descriptor>
+          </descriptors>
+		    </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.7</version>
+        <configuration>
+          <tasks>
+            <property name="rootdir" location="./.." />
+            <property name="target" value="${project.build.directory}" />
+            <property name="dest" value="${target}/${project.name}-example" />
+
+            <copy file="${target}/siren-solr-demo-jar-with-dependencies.jar" tofile="${dest}/post.jar"></copy>
+
+            <chmod dir="${dest}" perm="755" includes="**/*.sh"/>
+          </tasks>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+
+    <dependency>
+      <groupId>com.sindicetech.siren</groupId>
+      <artifactId>siren-core</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.sindicetech.siren</groupId>
+      <artifactId>siren-qparser</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.sindicetech.siren</groupId>
+      <artifactId>siren-solr</artifactId>
+      <version>${project.version}</version>
+
+      <!--  Removed binding for logback -->
+      <exclusions>
+	      <exclusion>
+	        <groupId>org.slf4j</groupId>
+	        <artifactId>slf4j-jdk14</artifactId>
+	      </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>com.sindicetech.siren</groupId>
+      <artifactId>siren-solr-facet</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.solr</groupId>
+      <artifactId>solr-solrj</artifactId>
+      <version>${lucene.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.sindicetech.siren</groupId>
+      <artifactId>siren-lucene-demo</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.codehaus.jackson</groupId>
+      <artifactId>jackson-core-asl</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.codehaus.jackson</groupId>
+      <artifactId>jackson-mapper-asl</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <version>1.7.5</version>
+    </dependency>
+  </dependencies>
+
+</project>

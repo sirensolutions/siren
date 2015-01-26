@@ -1,0 +1,18 @@
+{
+  "twig" : {
+    "root" : "DeviceOwner",
+    "descendant" : [ {
+      "occur" : "MUST",
+      "level" : 2,
+      "twig" : {
+        "root" : "Website",
+        "child" : [ {
+          "occur" : "MUST",
+          "node" : {
+            "query" : "uri('www.sourcelondon.net')"
+          }
+        } ]
+      }
+    } ]
+  }
+}

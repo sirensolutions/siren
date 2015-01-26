@@ -1,0 +1,33 @@
+{
+    "title": "Unforgiven",
+    "year": "1992",
+    "genre": "Western",
+    "summary": "The town of Big Whisky is full of normal people \n  trying to lead quiet lives. Cowboys try to make a \n  living. Sheriff 'Little Bill' tries to build a \n  house and keep a heavy-handed order. The town \n  whores just try to get by.Then a couple of cowboys \n  cut up a whore. Unsatisfied with Bill's justice, \n  the prostitutes put a bounty on the cowboys. The \n  bounty attracts a young gun billing himself as \n  'The Schofield Kid', and aging killer William \n  Munny. Munny reformed for his young wife, and has \n  been raising crops and two children in peace. But \n  his wife is gone. Farm life is hard. And Munny is \n  no good at it. So he calls his old partner Ned, \n  saddles his ornery nag, and rides off to kill one \n  more time, blurring the lines between heroism and \n  villainy, man and myth.",
+    "country": "USA",
+
+ "director": {
+     "last_name": "Eastwood",
+     "first_name": "Clint",
+     "birth_date": "1930"
+ },
+ "actors": [
+  {
+      "first_name": "Clint",
+      "last_name": "Eastwood",
+      "birth_date": "1930",
+      "role": "William Munny"
+  },
+  {
+      "first_name": "Gene",
+      "last_name": "Hackman",
+      "birth_date": "1930",
+      "role": "Little Bill Dagget"
+  },
+  {
+      "first_name": "Morgan",
+      "last_name": "Freeman",
+      "birth_date": "1937",
+      "role": "Ned Logan"
+  }
+ ]
+}
