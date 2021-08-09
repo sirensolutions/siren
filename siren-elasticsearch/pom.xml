@@ -22,7 +22,7 @@
   </licenses>
 
   <properties>
-    <elasticsearch.version>1.3.4</elasticsearch.version>
+    <elasticsearch.version>6.8.17</elasticsearch.version>
   </properties>
 
   <build>
